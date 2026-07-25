@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/assets/images/favicon-192.png">
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
 
-  <link rel="preload" href="/assets/images/hero.webp" as="image" type="image/webp">
+<link rel="preload" href="/assets/images/hero-new.jpg" as="image">
   <link rel="stylesheet" href="/assets/css/styles.css">
 
   <script type="application/ld+json">
@@ -28,17 +28,14 @@
     "@context": "https://schema.org",
     "@type": "Electrician",
     "name": "ЭлКомс",
+    "legalName": "ИП Калымбет Владислав Александрович",
+    "taxID": "775106231762",
+    "foundingDate": "2022-05-06",
     "url": "https://elkoms2022.ru/",
     "logo": "https://elkoms2022.ru/assets/images/logo.png",
     "image": "https://elkoms2022.ru/assets/images/og-image.jpg",
     "telephone": "+7-903-174-14-68",
     "email": "elkoms2022@mail.ru",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Москва",
-      "streetAddress": "ул. Электрозаводская, 21",
-      "addressCountry": "RU"
-    },
     "areaServed": ["Москва", "Московская область"],
     "description": "Электромонтажные работы, сборка щитов, системы АПС, СОУЭ, СКУД и видеонаблюдение.",
     "priceRange": "₽₽"
@@ -65,7 +62,7 @@
 
   <main id="main-content">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="hero-photo" role="img" aria-label="Выполненный электромонтаж в современном офисном пространстве"></div>
+      <div class="hero-photo" role="img" aria-label="Выполненный электромонтаж в современном помещении"></div>
       <div class="hero-shade"></div>
       <div class="hero-accent" aria-hidden="true"></div>
 
@@ -89,31 +86,23 @@
       <div class="container">
         <div class="section-heading projects-heading">
           <div>
-            <p class="eyebrow">Выполненные работы</p>
             <h2 id="projects-title">Наши объекты</h2>
           </div>
 
-          <div class="project-controls" aria-label="Категории объектов">
-            <div class="project-tabs" role="tablist" aria-label="Категории объектов">
-              <button class="project-tab is-active" type="button" role="tab" aria-selected="true" data-category="commercial">Коммерческие</button>
-              <button class="project-tab" type="button" role="tab" aria-selected="false" data-category="private">Частные</button>
-            </div>
-
-            <div class="carousel-arrows">
-              <button class="icon-button" id="projects-prev" type="button" aria-label="Предыдущие объекты">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
-              </button>
-              <button class="icon-button" id="projects-next" type="button" aria-label="Следующие объекты">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
-              </button>
-            </div>
+          <div class="carousel-arrows" aria-label="Перелистывание объектов">
+            <button class="icon-button" id="projects-prev" type="button" aria-label="Предыдущие объекты">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button class="icon-button" id="projects-next" type="button" aria-label="Следующие объекты">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+            </button>
           </div>
         </div>
 
         <div class="project-viewport" id="project-viewport" tabindex="0" aria-label="Галерея карточек объектов">
           <div class="project-track" id="project-track"></div>
         </div>
-        <div class="carousel-dots" id="project-dots" aria-label="Навигация по слайдам"></div>
+        <div class="carousel-dots" id="project-dots" aria-label="Навигация по объектам"></div>
       </div>
     </section>
 
@@ -121,7 +110,6 @@
       <div class="container">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Полный комплекс работ</p>
             <h2 id="services-title">Наши услуги</h2>
           </div>
         </div>
@@ -152,7 +140,6 @@
       <div class="container">
         <div class="section-heading">
           <div>
-            <p class="eyebrow">Свяжитесь с нами</p>
             <h2 id="contacts-title">Наши контакты</h2>
           </div>
           <button class="button button-outline js-open-request" type="button">Получить расчёт</button>
@@ -162,6 +149,7 @@
           <div class="contact-block contact-phones">
             <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.69 2.8a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.28-1.28a2 2 0 0 1 2.11-.45c.9.33 1.84.56 2.8.69A2 2 0 0 1 22 16.92z"/></svg>
             <div>
+              <span class="contact-label">Телефоны</span>
               <a class="primary-phone" href="tel:+79031741468">+7 (903) 174-14-68</a>
               <a href="tel:+79585011763">+7 (958) 501-17-63</a>
               <a href="tel:+79259047233">+7 (925) 904-72-33</a>
@@ -171,21 +159,29 @@
 
           <div class="contact-divider" aria-hidden="true"></div>
 
-          <div class="contact-block">
+          <div class="contact-block contact-email">
             <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="m22 6-10 7L2 6"/></svg>
             <div>
-              <span class="contact-label">E-mail</span>
+              <span class="contact-label">Электронная почта</span>
               <a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a>
+              <p class="service-area">Работаем по Москве и Московской области</p>
             </div>
           </div>
 
           <div class="contact-divider" aria-hidden="true"></div>
 
-          <div class="contact-block">
-            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <div class="contact-block contact-requisites">
+            <svg class="contact-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h9l5 5v15H6z"/>
+              <path d="M15 2v6h5M9 13h8M9 17h8M9 9h2"/>
+            </svg>
             <div>
-              <span class="contact-label">Адрес</span>
-              <p>г. Москва,<br>ул. Электрозаводская, 21</p>
+              <span class="contact-label">Реквизиты</span>
+              <p><strong>ИП Калымбет Владислав Александрович</strong></p>
+              <p>ИНН: 775106231762</p>
+              <p>ОГРНИП: 322774600289874</p>
+              <p>Дата регистрации: 6 мая 2022 года</p>
+              <button class="inline-link requisites-link" id="open-fullrek" type="button">Полные реквизиты</button>
             </div>
           </div>
         </div>
@@ -199,12 +195,17 @@
         <img class="brand-logo" src="/assets/images/logo.png" alt="" width="56" height="56">
         <span class="brand-name">ЭлКомс</span>
       </a>
+
       <p>© <span id="current-year">2026</span> ЭлКомс. Все права защищены.</p>
-      <button class="footer-link" id="open-privacy" type="button">Политика конфиденциальности</button>
+
+      <div class="footer-actions">
+        <button class="footer-link" id="open-fullrek-footer" type="button">Реквизиты</button>
+        <button class="footer-link" id="open-privacy" type="button">Политика конфиденциальности</button>
+      </div>
     </div>
   </footer>
 
-  <!-- Галерея объекта. Внутри переключаются только фотографии выбранного объекта. -->
+  <!-- Галерея: внутри переключаются только фотографии выбранного объекта. -->
   <dialog class="gallery-dialog" id="gallery-dialog" aria-labelledby="gallery-title">
     <div class="gallery-shell">
       <div class="gallery-topbar">
@@ -267,11 +268,16 @@
           <span>Ваш сайт</span>
           <input type="text" name="website" tabindex="-1" autocomplete="off">
         </label>
+
         <input type="hidden" name="started_at" id="form-started-at" value="">
+        <input type="hidden" name="privacy_version" value="25.07.2026">
 
         <label class="consent-row">
           <input type="checkbox" name="consent" value="1" required>
-          <span>Я согласен на обработку персональных данных согласно <button class="inline-link" id="privacy-from-form" type="button">политике конфиденциальности</button>.</span>
+          <span>
+            Я согласен на обработку персональных данных в соответствии с
+            <button class="inline-link" id="privacy-from-form" type="button">политикой конфиденциальности</button>.
+          </span>
         </label>
 
         <button class="button button-red request-submit" type="submit">
@@ -284,16 +290,128 @@
     </div>
   </dialog>
 
-  <!-- Политика конфиденциальности. Перед публикацией заполните реквизиты оператора. -->
-  <dialog class="privacy-dialog" id="privacy-dialog" aria-labelledby="privacy-title">
-    <article class="privacy-shell">
-      <button class="dialog-close" id="privacy-close" type="button" aria-label="Закрыть политику">
+  <!-- Полные реквизиты -->
+  <dialog class="privacy-dialog" id="fullrek-dialog" aria-labelledby="fullrek-title">
+    <article class="privacy-shell requisites-shell">
+      <button class="dialog-close" id="fullrek-close" type="button" aria-label="Закрыть реквизиты">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
-      <h2 id="privacy-title">Политика конфиденциальности</h2>
-      <p><strong>Важно:</strong> перед публикацией замените этот текст на политику с реквизитами владельца сайта и перечнем используемых сервисов.</p>
-      <p>Отправляя форму, посетитель предоставляет имя, номер телефона и комментарий для обратной связи по вопросу оказания услуг. Данные не публикуются и используются только для обработки обращения.</p>
-      <p>Для удаления или уточнения данных посетитель может написать на адрес <a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a>.</p>
+
+      <h2 id="fullrek-title">Полные реквизиты</h2>
+
+      <dl class="requisites-list">
+        <div>
+          <dt>Индивидуальный предприниматель</dt>
+          <dd>Калымбет Владислав Александрович</dd>
+        </div>
+        <div>
+          <dt>ИНН</dt>
+          <dd>775106231762</dd>
+        </div>
+        <div>
+          <dt>ОГРНИП</dt>
+          <dd>322774600289874</dd>
+        </div>
+        <div>
+          <dt>Дата государственной регистрации</dt>
+          <dd>6 мая 2022 года</dd>
+        </div>
+        <div>
+          <dt>Регистрирующий орган</dt>
+          <dd>Межрегиональная инспекция Федеральной налоговой службы по централизованной обработке данных</dd>
+        </div>
+        <div>
+          <dt>Телефон</dt>
+          <dd><a href="tel:+79031741468">+7 (903) 174-14-68</a></dd>
+        </div>
+        <div>
+          <dt>Электронная почта</dt>
+          <dd><a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a></dd>
+        </div>
+      </dl>
+    </article>
+  </dialog>
+
+  <!-- Политика конфиденциальности и обработки персональных данных -->
+  <dialog class="privacy-dialog" id="privacy-dialog" aria-labelledby="privacy-title">
+    <article class="privacy-shell policy-shell">
+      <button class="dialog-close" id="privacy-close" type="button" aria-label="Закрыть политику конфиденциальности">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+
+      <h2 id="privacy-title">Политика конфиденциальности и обработки персональных данных</h2>
+      <p class="policy-date"><strong>Редакция от 25 июля 2026 года</strong></p>
+
+      <h3>1. Общие положения</h3>
+      <p>Настоящая Политика определяет порядок обработки и защиты персональных данных посетителей сайта <a href="https://elkoms2022.ru/">elkoms2022.ru</a>.</p>
+      <p>Оператор персональных данных: индивидуальный предприниматель Калымбет Владислав Александрович, ИНН 775106231762, ОГРНИП 322774600289874.</p>
+      <p>Контакты Оператора: телефон <a href="tel:+79031741468">+7 (903) 174-14-68</a>, электронная почта <a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a>.</p>
+      <p>Политика разработана в соответствии с Федеральным законом от 27.07.2006 № 152-ФЗ «О персональных данных».</p>
+
+      <h3>2. Какие данные обрабатываются</h3>
+      <p>При отправке формы на сайте пользователь может предоставить следующие персональные данные:</p>
+      <ul>
+        <li>имя;</li>
+        <li>номер телефона;</li>
+        <li>текст комментария и сведения, которые пользователь добровольно укажет в нём.</li>
+      </ul>
+      <p>При посещении сайта могут автоматически обрабатываться технические сведения: IP-адрес, дата и время посещения, тип браузера и устройства, адрес посещённой страницы, источник перехода, файлы cookie и сведения о действиях на сайте.</p>
+      <p>Через форму сайта Оператор не запрашивает паспортные данные, платёжные данные, специальные категории и биометрические персональные данные.</p>
+
+      <h3>3. Цели обработки</h3>
+      <ul>
+        <li>приём и обработка заявки;</li>
+        <li>обратная связь с пользователем;</li>
+        <li>уточнение вида, объёма и стоимости работ;</li>
+        <li>подготовка расчёта или коммерческого предложения;</li>
+        <li>заключение и исполнение договора по инициативе пользователя;</li>
+        <li>обеспечение безопасности и корректной работы сайта;</li>
+        <li>предотвращение спама и злоупотреблений;</li>
+        <li>анализ посещаемости и улучшение сайта.</li>
+      </ul>
+
+      <h3>4. Правовые основания обработки</h3>
+      <p>Оператор обрабатывает персональные данные на основании согласия пользователя, а также в случаях, когда обработка необходима для заключения или исполнения договора и выполнения обязанностей, установленных законодательством Российской Федерации.</p>
+
+      <h3>5. Способы обработки</h3>
+      <p>Обработка может включать сбор, запись, систематизацию, накопление, хранение, уточнение, извлечение, использование, предоставление доступа, блокирование, удаление и уничтожение персональных данных. Обработка осуществляется с использованием средств автоматизации, без их использования либо смешанным способом.</p>
+      <p>Оператор не продаёт персональные данные, не размещает их в открытом доступе и не распространяет среди неопределённого круга лиц.</p>
+
+      <h3>6. Передача и поручение обработки</h3>
+      <p>В объёме, необходимом для работы сайта и обработки обращений, данные могут обрабатываться поставщиком хостинга, провайдером электронной почты и иными подрядчиками, обеспечивающими техническую работу сайта.</p>
+      <p>При подключении сервиса Яндекс Метрика технические данные о посещениях могут обрабатываться ООО «ЯНДЕКС». Оператор не передаёт в системы веб-аналитики имя, телефон, электронную почту и содержание обращения пользователя.</p>
+      <p>Персональные данные также могут быть предоставлены государственным органам в случаях и порядке, предусмотренных законодательством Российской Федерации.</p>
+
+      <h3>7. Сроки обработки и хранения</h3>
+      <p>Данные заявки обрабатываются до достижения целей обработки, отзыва согласия или поступления требования о прекращении обработки, но не более одного года с даты последнего взаимодействия, если более длительный срок не требуется для исполнения договора или соблюдения закона.</p>
+      <p>После достижения целей обработки данные удаляются или уничтожаются, если Оператор не вправе продолжить обработку на ином законном основании.</p>
+
+      <h3>8. Права пользователя</h3>
+      <p>Пользователь вправе получить сведения об обработке своих персональных данных, потребовать их уточнения, блокирования или удаления, отозвать согласие и потребовать прекращения обработки в предусмотренных законом случаях.</p>
+      <p>Обращение можно направить на электронную почту <a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a>. Для идентификации заявителя в обращении следует указать имя, использованный при отправке заявки номер телефона, суть требования и сведения, позволяющие подтвердить принадлежность данных заявителю.</p>
+
+      <h3>9. Отзыв согласия</h3>
+      <p>Согласие можно отозвать письмом на адрес <a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a> с темой «Отзыв согласия на обработку персональных данных».</p>
+      <p>Отзыв согласия не влияет на законность обработки, выполненной до момента его получения. Оператор вправе продолжить обработку при наличии другого законного основания.</p>
+
+      <h3>10. Защита данных</h3>
+      <p>Оператор принимает необходимые правовые, организационные и технические меры для защиты данных от неправомерного или случайного доступа, изменения, блокирования, копирования, предоставления, распространения, уничтожения и иных неправомерных действий.</p>
+
+      <h3>11. Cookie и веб-аналитика</h3>
+      <p>Сайт может использовать файлы cookie для корректной работы, обеспечения безопасности и анализа посещаемости. Пользователь может ограничить или отключить cookie в настройках браузера, однако это может повлиять на работу отдельных функций сайта.</p>
+      <p>При использовании Яндекс Метрики могут обрабатываться технические сведения об устройстве, браузере, источнике перехода, посещённых страницах и действиях на сайте.</p>
+
+      <h3>12. Изменение Политики</h3>
+      <p>Оператор вправе обновлять Политику при изменении законодательства, способов обработки или используемых сервисов. Новая редакция вступает в силу после публикации на сайте, если в ней не указан иной срок.</p>
+
+      <h3>13. Реквизиты Оператора</h3>
+      <p>
+        ИП Калымбет Владислав Александрович<br>
+        ИНН: 775106231762<br>
+        ОГРНИП: 322774600289874<br>
+        Телефон: <a href="tel:+79031741468">+7 (903) 174-14-68</a><br>
+        Электронная почта: <a href="mailto:elkoms2022@mail.ru">elkoms2022@mail.ru</a>
+      </p>
     </article>
   </dialog>
 

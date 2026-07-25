@@ -1,14 +1,15 @@
 (() => {
   'use strict';
 
-  const projects = Array.isArray(window.ELKOMS_PROJECTS) ? window.ELKOMS_PROJECTS : [];
+  const projects = Array.isArray(window.ELKOMS_PROJECTS)
+    ? window.ELKOMS_PROJECTS
+    : [];
 
   const track = document.querySelector('#project-track');
   const viewport = document.querySelector('#project-viewport');
   const dots = document.querySelector('#project-dots');
   const prevButton = document.querySelector('#projects-prev');
   const nextButton = document.querySelector('#projects-next');
-  const tabs = [...document.querySelectorAll('.project-tab')];
 
   const galleryDialog = document.querySelector('#gallery-dialog');
   const galleryTitle = document.querySelector('#gallery-title');
@@ -32,11 +33,25 @@
   const privacyOpen = document.querySelector('#open-privacy');
   const privacyFromForm = document.querySelector('#privacy-from-form');
 
-  let activeCategory = 'commercial';
+  const fullrekDialog = document.querySelector('#fullrek-dialog');
+  const fullrekClose = document.querySelector('#fullrek-close');
+  const fullrekOpeners = [
+    document.querySelector('#open-fullrek'),
+    document.querySelector('#open-fullrek-footer')
+  ].filter(Boolean);
+
+  const allDialogs = [
+    galleryDialog,
+    requestDialog,
+    privacyDialog,
+    fullrekDialog
+  ].filter(Boolean);
+
   let activeProject = null;
   let activeImageIndex = 0;
   let galleryTouchStartX = 0;
   let galleryTouchStartY = 0;
+  let projectDotsFrame = 0;
 
   const escapeHtml = (value) => String(value)
     .replaceAll('&', '&amp;')
@@ -45,17 +60,61 @@
     .replaceAll('"', '&quot;')
     .replaceAll("'", '&#039;');
 
-  function filteredProjects() {
-    return projects.filter((project) => project.category === activeCategory);
+  function syncDialogOpenState() {
+    const hasOpenDialog = allDialogs.some((dialog) => dialog.open);
+    document.documentElement.classList.toggle('dialog-open', hasOpenDialog);
+  }
+
+  function closeDialog(dialog) {
+    if (dialog?.open) dialog.close();
+    syncDialogOpenState();
+  }
+
+  function closeOtherDialogs(exceptDialog) {
+    allDialogs.forEach((dialog) => {
+      if (dialog !== exceptDialog && dialog.open) dialog.close();
+    });
+  }
+
+  function showDialog(dialog, focusTarget) {
+    if (!dialog) return;
+
+    closeOtherDialogs(dialog);
+
+    if (!dialog.open) {
+      dialog.showModal();
+    }
+
+    syncDialogOpenState();
+    focusTarget?.focus();
   }
 
   function renderProjects() {
     if (!track) return;
 
-    const items = filteredProjects();
-    track.innerHTML = items.map((project) => `
-      <button class="project-card" type="button" data-project-id="${escapeHtml(project.id)}" aria-label="Открыть фотографии объекта: ${escapeHtml(project.title)}">
-        <img src="${escapeHtml(project.preview)}" alt="${escapeHtml(project.title)}" width="900" height="600" loading="lazy" decoding="async">
+    if (!projects.length) {
+      track.innerHTML = '<p class="projects-empty">Объекты скоро появятся.</p>';
+      if (dots) dots.innerHTML = '';
+      if (prevButton) prevButton.disabled = true;
+      if (nextButton) nextButton.disabled = true;
+      return;
+    }
+
+    track.innerHTML = projects.map((project) => `
+      <button
+        class="project-card"
+        type="button"
+        data-project-id="${escapeHtml(project.id)}"
+        aria-label="Открыть фотографии объекта: ${escapeHtml(project.title)}"
+      >
+        <img
+          src="${escapeHtml(project.preview)}"
+          alt="${escapeHtml(project.title)}"
+          width="900"
+          height="600"
+          loading="lazy"
+          decoding="async"
+        >
         <span class="project-card-overlay" aria-hidden="true"></span>
         <span class="project-card-title">${escapeHtml(project.title)}</span>
       </button>
@@ -69,7 +128,7 @@
     });
 
     requestAnimationFrame(() => {
-      viewport.scrollTo({ left: 0, behavior: 'instant' });
+      viewport?.scrollTo({ left: 0, behavior: 'auto' });
       renderProjectDots();
       updateCarouselButtons();
     });
@@ -78,79 +137,119 @@
   function cardStep() {
     const firstCard = track?.querySelector('.project-card');
     if (!firstCard) return 0;
-    const gap = Number.parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || '0');
+
+    const styles = getComputedStyle(track);
+    const gap = Number.parseFloat(styles.columnGap || styles.gap || '0');
+
     return firstCard.getBoundingClientRect().width + gap;
   }
 
   function maxScrollLeft() {
+    if (!viewport) return 0;
     return Math.max(0, viewport.scrollWidth - viewport.clientWidth);
   }
 
   function currentPageIndex() {
+    if (!viewport) return 0;
+
     const step = cardStep();
     if (!step) return 0;
+
     return Math.round(viewport.scrollLeft / step);
+  }
+
+  function pageCount() {
+    const step = cardStep();
+    if (!step) return 1;
+
+    return Math.max(1, Math.round(maxScrollLeft() / step) + 1);
   }
 
   function renderProjectDots() {
     if (!dots || !viewport) return;
-    const step = cardStep();
-    const totalPages = step ? Math.max(1, Math.round(maxScrollLeft() / step) + 1) : 1;
+
+    const totalPages = pageCount();
     const current = Math.min(currentPageIndex(), totalPages - 1);
 
     dots.innerHTML = Array.from({ length: totalPages }, (_, index) => `
-      <button class="carousel-dot${index === current ? ' is-active' : ''}" type="button" aria-label="Показать карточку ${index + 1}" data-page="${index}"></button>
+      <button
+        class="carousel-dot${index === current ? ' is-active' : ''}"
+        type="button"
+        aria-label="Показать объекты, страница ${index + 1}"
+        data-page="${index}"
+      ></button>
     `).join('');
 
     dots.querySelectorAll('.carousel-dot').forEach((dot) => {
       dot.addEventListener('click', () => {
-        viewport.scrollTo({ left: Number(dot.dataset.page) * step, behavior: 'smooth' });
+        const step = cardStep();
+        viewport.scrollTo({
+          left: Number(dot.dataset.page) * step,
+          behavior: 'smooth'
+        });
       });
     });
   }
 
   function updateProjectDots() {
+    if (!dots) return;
+
     const allDots = [...dots.querySelectorAll('.carousel-dot')];
     if (!allDots.length) return;
+
     const current = Math.min(currentPageIndex(), allDots.length - 1);
-    allDots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));
+    allDots.forEach((dot, index) => {
+      dot.classList.toggle('is-active', index === current);
+    });
   }
 
   function updateCarouselButtons() {
+    if (!viewport) return;
+
     const max = maxScrollLeft();
-    prevButton.disabled = viewport.scrollLeft <= 4;
-    nextButton.disabled = viewport.scrollLeft >= max - 4;
+
+    if (prevButton) {
+      prevButton.disabled = viewport.scrollLeft <= 4;
+    }
+
+    if (nextButton) {
+      nextButton.disabled = viewport.scrollLeft >= max - 4;
+    }
   }
 
   function scrollProjects(direction) {
-    const step = cardStep();
-    viewport.scrollBy({ left: direction * step, behavior: 'smooth' });
-  }
+    if (!viewport) return;
 
-  tabs.forEach((tab) => {
-    tab.addEventListener('click', () => {
-      activeCategory = tab.dataset.category;
-      tabs.forEach((item) => {
-        const isActive = item === tab;
-        item.classList.toggle('is-active', isActive);
-        item.setAttribute('aria-selected', String(isActive));
-      });
-      renderProjects();
+    const step = cardStep();
+    if (!step) return;
+
+    viewport.scrollBy({
+      left: direction * step,
+      behavior: 'smooth'
     });
-  });
+  }
 
   prevButton?.addEventListener('click', () => scrollProjects(-1));
   nextButton?.addEventListener('click', () => scrollProjects(1));
+
   viewport?.addEventListener('scroll', () => {
-    window.requestAnimationFrame(() => {
+    cancelAnimationFrame(projectDotsFrame);
+    projectDotsFrame = requestAnimationFrame(() => {
       updateProjectDots();
       updateCarouselButtons();
     });
   }, { passive: true });
 
   viewport?.addEventListener('keydown', (event) => {
-    if (event.key === 'ArrowLeft') scrollProjects(-1);
-    if (event.key === 'ArrowRight') scrollProjects(1);
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      scrollProjects(-1);
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      scrollProjects(1);
+    }
   });
 
   window.addEventListener('resize', () => {
@@ -158,14 +257,32 @@
     updateCarouselButtons();
   });
 
-  function setGalleryImage(index) {
+  function updateGalleryControls() {
     if (!activeProject) return;
+
+    const hasMultipleImages = activeProject.images.length > 1;
+
+    galleryPrev?.toggleAttribute('hidden', !hasMultipleImages);
+    galleryNext?.toggleAttribute('hidden', !hasMultipleImages);
+
+    if (galleryThumbs) {
+      galleryThumbs.hidden = !hasMultipleImages;
+    }
+  }
+
+  function setGalleryImage(index) {
+    if (!activeProject || !galleryImage || !galleryCounter) return;
+
     const total = activeProject.images.length;
+    if (!total) return;
+
     activeImageIndex = (index + total) % total;
     const source = activeProject.images[activeImageIndex];
 
     galleryImage.classList.add('is-changing');
+
     const preloader = new Image();
+
     preloader.onload = () => {
       galleryImage.src = source;
       galleryImage.alt = `${activeProject.title}, фотография ${activeImageIndex + 1}`;
@@ -174,15 +291,20 @@
       updateGalleryThumbs();
       preloadGalleryNeighbors();
     };
+
     preloader.onerror = () => {
       galleryImage.classList.remove('is-changing');
+      galleryImage.alt = 'Не удалось загрузить фотографию';
     };
+
     preloader.src = source;
   }
 
   function preloadGalleryNeighbors() {
     if (!activeProject || activeProject.images.length < 2) return;
+
     const total = activeProject.images.length;
+
     [activeImageIndex - 1, activeImageIndex + 1].forEach((index) => {
       const image = new Image();
       image.src = activeProject.images[(index + total) % total];
@@ -190,42 +312,75 @@
   }
 
   function renderGalleryThumbs() {
+    if (!galleryThumbs || !activeProject) return;
+
     galleryThumbs.innerHTML = activeProject.images.map((src, index) => `
-      <button class="gallery-thumb${index === activeImageIndex ? ' is-active' : ''}" type="button" data-image-index="${index}" aria-label="Открыть фотографию ${index + 1}">
+      <button
+        class="gallery-thumb${index === activeImageIndex ? ' is-active' : ''}"
+        type="button"
+        data-image-index="${index}"
+        aria-label="Открыть фотографию ${index + 1}"
+      >
         <img src="${escapeHtml(src)}" alt="" width="92" height="64" loading="lazy">
       </button>
     `).join('');
 
     galleryThumbs.querySelectorAll('.gallery-thumb').forEach((thumb) => {
-      thumb.addEventListener('click', () => setGalleryImage(Number(thumb.dataset.imageIndex)));
+      thumb.addEventListener('click', () => {
+        setGalleryImage(Number(thumb.dataset.imageIndex));
+      });
     });
   }
 
   function updateGalleryThumbs() {
+    if (!galleryThumbs) return;
+
     const thumbs = [...galleryThumbs.querySelectorAll('.gallery-thumb')];
-    thumbs.forEach((thumb, index) => thumb.classList.toggle('is-active', index === activeImageIndex));
-    thumbs[activeImageIndex]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+    thumbs.forEach((thumb, index) => {
+      thumb.classList.toggle('is-active', index === activeImageIndex);
+    });
+
+    thumbs[activeImageIndex]?.scrollIntoView({
+      behavior: 'smooth',
+      block: 'nearest',
+      inline: 'center'
+    });
   }
 
   function openGallery(project) {
+    if (!galleryDialog || !galleryTitle || !Array.isArray(project.images) || !project.images.length) {
+      return;
+    }
+
     activeProject = project;
     activeImageIndex = 0;
     galleryTitle.textContent = project.title;
+
     renderGalleryThumbs();
+    updateGalleryControls();
     setGalleryImage(0);
-    galleryDialog.showModal();
-    document.documentElement.classList.add('dialog-open');
-    galleryClose.focus();
+    showDialog(galleryDialog, galleryClose);
   }
 
   function closeGallery() {
-    if (galleryDialog.open) galleryDialog.close();
+    closeDialog(galleryDialog);
     activeProject = null;
-    document.documentElement.classList.remove('dialog-open');
+
+    if (galleryImage) {
+      galleryImage.removeAttribute('src');
+      galleryImage.alt = '';
+    }
   }
 
-  galleryPrev?.addEventListener('click', () => setGalleryImage(activeImageIndex - 1));
-  galleryNext?.addEventListener('click', () => setGalleryImage(activeImageIndex + 1));
+  galleryPrev?.addEventListener('click', () => {
+    setGalleryImage(activeImageIndex - 1);
+  });
+
+  galleryNext?.addEventListener('click', () => {
+    setGalleryImage(activeImageIndex + 1);
+  });
+
   galleryClose?.addEventListener('click', closeGallery);
 
   galleryDialog?.addEventListener('click', (event) => {
@@ -244,38 +399,63 @@
   }, { passive: true });
 
   galleryStage?.addEventListener('touchend', (event) => {
+    if (!activeProject || activeProject.images.length < 2) return;
+
     const touch = event.changedTouches[0];
     const diffX = touch.clientX - galleryTouchStartX;
     const diffY = touch.clientY - galleryTouchStartY;
+
     if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
       setGalleryImage(activeImageIndex + (diffX < 0 ? 1 : -1));
     }
   }, { passive: true });
 
   document.addEventListener('keydown', (event) => {
-    if (!galleryDialog.open) return;
-    if (event.key === 'ArrowLeft') setGalleryImage(activeImageIndex - 1);
-    if (event.key === 'ArrowRight') setGalleryImage(activeImageIndex + 1);
+    if (!galleryDialog?.open || !activeProject || activeProject.images.length < 2) {
+      return;
+    }
+
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      setGalleryImage(activeImageIndex - 1);
+    }
+
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      setGalleryImage(activeImageIndex + 1);
+    }
   });
 
   function openRequestDialog() {
-    formStatus.textContent = '';
-    formStartedAt.value = String(Date.now());
-    requestDialog.showModal();
-    document.documentElement.classList.add('dialog-open');
-    requestDialog.querySelector('input[name="name"]')?.focus();
+    if (formStatus) {
+      formStatus.textContent = '';
+      formStatus.className = 'form-status';
+    }
+
+    if (formStartedAt) {
+      formStartedAt.value = String(Date.now());
+    }
+
+    showDialog(
+      requestDialog,
+      requestDialog?.querySelector('input[name="name"]')
+    );
   }
 
   function closeRequestDialog() {
-    if (requestDialog.open) requestDialog.close();
-    document.documentElement.classList.remove('dialog-open');
+    closeDialog(requestDialog);
   }
 
-  requestOpeners.forEach((button) => button.addEventListener('click', openRequestDialog));
+  requestOpeners.forEach((button) => {
+    button.addEventListener('click', openRequestDialog);
+  });
+
   requestClose?.addEventListener('click', closeRequestDialog);
+
   requestDialog?.addEventListener('click', (event) => {
     if (event.target === requestDialog) closeRequestDialog();
   });
+
   requestDialog?.addEventListener('cancel', (event) => {
     event.preventDefault();
     closeRequestDialog();
@@ -290,61 +470,107 @@
     }
 
     const submitButton = requestForm.querySelector('button[type="submit"]');
-    const originalText = submitButton.querySelector('span').textContent;
-    submitButton.disabled = true;
-    submitButton.querySelector('span').textContent = 'Отправляем…';
-    formStatus.className = 'form-status';
-    formStatus.textContent = '';
+    const submitText = submitButton?.querySelector('span');
+    const originalText = submitText?.textContent || 'Отправить заявку';
+
+    if (submitButton) submitButton.disabled = true;
+    if (submitText) submitText.textContent = 'Отправляем…';
+
+    if (formStatus) {
+      formStatus.className = 'form-status';
+      formStatus.textContent = '';
+    }
 
     try {
       const response = await fetch(requestForm.action, {
         method: 'POST',
         body: new FormData(requestForm),
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
       });
 
       const data = await response.json().catch(() => ({}));
+
       if (!response.ok || !data.ok) {
-        throw new Error(data.message || 'Не удалось отправить заявку. Позвоните нам по основному номеру.');
+        throw new Error(
+          data.message ||
+          'Не удалось отправить заявку. Позвоните нам по основному номеру.'
+        );
       }
 
-      formStatus.className = 'form-status is-success';
-      formStatus.textContent = data.message || 'Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
+      if (formStatus) {
+        formStatus.className = 'form-status is-success';
+        formStatus.textContent = data.message ||
+          'Заявка отправлена. Мы свяжемся с вами в ближайшее время.';
+      }
+
       requestForm.reset();
-      formStartedAt.value = String(Date.now());
+
+      if (formStartedAt) {
+        formStartedAt.value = String(Date.now());
+      }
     } catch (error) {
-      formStatus.className = 'form-status is-error';
-      formStatus.textContent = error.message || 'Произошла ошибка при отправке.';
+      if (formStatus) {
+        formStatus.className = 'form-status is-error';
+        formStatus.textContent = error instanceof Error
+          ? error.message
+          : 'Произошла ошибка при отправке.';
+      }
     } finally {
-      submitButton.disabled = false;
-      submitButton.querySelector('span').textContent = originalText;
+      if (submitButton) submitButton.disabled = false;
+      if (submitText) submitText.textContent = originalText;
     }
   });
 
   function openPrivacyDialog() {
-    if (requestDialog.open) requestDialog.close();
-    privacyDialog.showModal();
-    document.documentElement.classList.add('dialog-open');
-    privacyClose.focus();
+    showDialog(privacyDialog, privacyClose);
   }
 
   function closePrivacyDialog() {
-    if (privacyDialog.open) privacyDialog.close();
-    document.documentElement.classList.remove('dialog-open');
+    closeDialog(privacyDialog);
   }
 
   privacyOpen?.addEventListener('click', openPrivacyDialog);
   privacyFromForm?.addEventListener('click', openPrivacyDialog);
   privacyClose?.addEventListener('click', closePrivacyDialog);
+
   privacyDialog?.addEventListener('click', (event) => {
     if (event.target === privacyDialog) closePrivacyDialog();
   });
+
   privacyDialog?.addEventListener('cancel', (event) => {
     event.preventDefault();
     closePrivacyDialog();
   });
 
-  document.querySelector('#current-year').textContent = String(new Date().getFullYear());
+  function openFullrekDialog() {
+    showDialog(fullrekDialog, fullrekClose);
+  }
+
+  function closeFullrekDialog() {
+    closeDialog(fullrekDialog);
+  }
+
+  fullrekOpeners.forEach((button) => {
+    button.addEventListener('click', openFullrekDialog);
+  });
+
+  fullrekClose?.addEventListener('click', closeFullrekDialog);
+
+  fullrekDialog?.addEventListener('click', (event) => {
+    if (event.target === fullrekDialog) closeFullrekDialog();
+  });
+
+  fullrekDialog?.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeFullrekDialog();
+  });
+
+  const currentYear = document.querySelector('#current-year');
+  if (currentYear) {
+    currentYear.textContent = String(new Date().getFullYear());
+  }
 
   renderProjects();
 })();
