@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://elkoms2022.ru/sitemap.xml
+Host: elkoms2022.ru
