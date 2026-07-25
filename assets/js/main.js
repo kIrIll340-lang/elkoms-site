@@ -20,6 +20,7 @@
   const galleryNext = document.querySelector('#gallery-next');
   const galleryClose = document.querySelector('#gallery-close');
   const galleryStage = document.querySelector('#gallery-stage');
+  const galleryShell = document.querySelector('.gallery-shell');
 
   const requestDialog = document.querySelector('#request-dialog');
   const requestClose = document.querySelector('#request-close');
@@ -36,7 +37,6 @@
   const fullrekDialog = document.querySelector('#fullrek-dialog');
   const fullrekClose = document.querySelector('#fullrek-close');
   const fullrekOpeners = [
-    document.querySelector('#open-fullrek'),
     document.querySelector('#open-fullrek-footer')
   ].filter(Boolean);
 
@@ -255,6 +255,10 @@
   window.addEventListener('resize', () => {
     renderProjectDots();
     updateCarouselButtons();
+
+    if (galleryDialog?.open && galleryImage?.naturalWidth && galleryImage?.naturalHeight) {
+      updateGalleryStageSize(galleryImage.naturalWidth, galleryImage.naturalHeight);
+    }
   });
 
   function updateGalleryControls() {
@@ -268,6 +272,32 @@
     if (galleryThumbs) {
       galleryThumbs.hidden = !hasMultipleImages;
     }
+  }
+
+  function updateGalleryStageSize(width, height) {
+    if (!galleryStage || !width || !height) return;
+
+    const shellRect = galleryShell?.getBoundingClientRect();
+    const topbarRect = galleryShell?.querySelector('.gallery-topbar')?.getBoundingClientRect();
+    const footerRect = galleryShell?.querySelector('.gallery-footer')?.getBoundingClientRect();
+    const shellStyles = galleryShell ? getComputedStyle(galleryShell) : null;
+    const rowGap = Number.parseFloat(shellStyles?.rowGap || shellStyles?.gap || '0') || 0;
+
+    const maxWidth = shellRect?.width || Math.min(window.innerWidth * 0.86, 1480);
+    const reservedHeight = (topbarRect?.height || 0) + (footerRect?.height || 0) + rowGap * 2;
+    const maxHeight = Math.max(220, (shellRect?.height || window.innerHeight * 0.88) - reservedHeight);
+    const ratio = width / height;
+
+    let stageWidth = maxWidth;
+    let stageHeight = stageWidth / ratio;
+
+    if (stageHeight > maxHeight) {
+      stageHeight = maxHeight;
+      stageWidth = stageHeight * ratio;
+    }
+
+    galleryStage.style.setProperty('--gallery-stage-width', `${Math.round(stageWidth)}px`);
+    galleryStage.style.setProperty('--gallery-stage-height', `${Math.round(stageHeight)}px`);
   }
 
   function setGalleryImage(index) {
@@ -284,6 +314,7 @@
     const preloader = new Image();
 
     preloader.onload = () => {
+      updateGalleryStageSize(preloader.naturalWidth, preloader.naturalHeight);
       galleryImage.src = source;
       galleryImage.alt = `${activeProject.title}, фотография ${activeImageIndex + 1}`;
       galleryCounter.textContent = `${activeImageIndex + 1} / ${total}`;
@@ -359,8 +390,8 @@
 
     renderGalleryThumbs();
     updateGalleryControls();
-    setGalleryImage(0);
     showDialog(galleryDialog, galleryClose);
+    setGalleryImage(0);
   }
 
   function closeGallery() {
@@ -371,6 +402,9 @@
       galleryImage.removeAttribute('src');
       galleryImage.alt = '';
     }
+
+    galleryStage?.style.removeProperty('--gallery-stage-width');
+    galleryStage?.style.removeProperty('--gallery-stage-height');
   }
 
   galleryPrev?.addEventListener('click', () => {

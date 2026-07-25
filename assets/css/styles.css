@@ -872,12 +872,11 @@ dialog::backdrop {
   background: rgba(10, 10, 10, 0.6);
   color: #fff;
   cursor: pointer;
-  transition: background 0.2s ease, transform 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .dialog-close:hover {
   background: rgba(169, 17, 25, 0.65);
-  transform: rotate(5deg);
 }
 
 .dialog-close svg {
@@ -887,10 +886,20 @@ dialog::backdrop {
   stroke: currentColor;
   stroke-width: 1.7;
   stroke-linecap: round;
+  transition: transform 0.24s ease;
+  transform-origin: center;
+}
+
+.dialog-close:hover svg,
+.dialog-close:focus-visible svg {
+  transform: rotate(90deg);
 }
 
 .gallery-stage {
   position: relative;
+  width: var(--gallery-stage-width, min(80vw, 1200px));
+  height: var(--gallery-stage-height, min(76vh, 760px));
+  justify-self: center;
   min-height: 0;
   display: grid;
   place-items: center;
@@ -902,12 +911,12 @@ dialog::backdrop {
 }
 
 .gallery-stage > img {
-  width: auto;
-  height: auto;
-  max-width: 80vw;
-  max-height: 76vh;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
   display: block;
-  object-fit: contain;
+  object-fit: cover;
   opacity: 1;
   transform: scale(1);
   transition: opacity 0.18s ease, transform 0.22s ease;
@@ -1481,8 +1490,8 @@ dialog::backdrop {
   }
 
   .gallery-stage > img {
-    max-width: calc(100vw - 28px);
-    max-height: 69dvh;
+    max-width: none;
+    max-height: none;
   }
 
   .gallery-arrow {
@@ -1586,7 +1595,7 @@ dialog::backdrop {
   }
 
   .gallery-stage > img {
-    max-height: 66dvh;
+    max-height: none;
   }
 
   .privacy-shell h2 {
