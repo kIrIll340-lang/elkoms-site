@@ -7,7 +7,10 @@ header('Cache-Control: no-store');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['ok' => false, 'message' => 'Разрешён только POST-запрос.'], JSON_UNESCAPED_UNICODE);
+    echo json_encode(
+        ['ok' => false, 'message' => 'Разрешён только POST-запрос.'],
+        JSON_UNESCAPED_UNICODE
+    );
     exit;
 }
 
@@ -16,7 +19,10 @@ session_start();
 function reply(int $status, bool $ok, string $message): never
 {
     http_response_code($status);
-    echo json_encode(['ok' => $ok, 'message' => $message], JSON_UNESCAPED_UNICODE);
+    echo json_encode(
+        ['ok' => $ok, 'message' => $message],
+        JSON_UNESCAPED_UNICODE
+    );
     exit;
 }
 
@@ -27,7 +33,6 @@ function clean(string $value): string
     return $value;
 }
 
-// Настройки: замените адрес при необходимости.
 $recipient = 'elkoms2022@mail.ru';
 $siteName = 'ЭлКомс';
 $siteDomain = 'elkoms2022.ru';
@@ -37,6 +42,7 @@ $phone = clean((string)($_POST['phone'] ?? ''));
 $message = clean((string)($_POST['message'] ?? ''));
 $website = clean((string)($_POST['website'] ?? ''));
 $consent = (string)($_POST['consent'] ?? '');
+$privacyVersion = clean((string)($_POST['privacy_version'] ?? 'не указана'));
 $startedAt = (int)($_POST['started_at'] ?? 0);
 
 // Honeypot: обычный пользователь это поле не видит.
@@ -72,6 +78,10 @@ if ($consent !== '1') {
     reply(422, false, 'Необходимо согласие на обработку персональных данных.');
 }
 
+if (mb_strlen($privacyVersion) > 40) {
+    $privacyVersion = mb_substr($privacyVersion, 0, 40);
+}
+
 $ip = $_SERVER['REMOTE_ADDR'] ?? 'не определён';
 $userAgent = clean((string)($_SERVER['HTTP_USER_AGENT'] ?? 'не определён'));
 $date = date('d.m.Y H:i:s');
@@ -81,12 +91,13 @@ $body = "Новая заявка с сайта {$siteName}\n\n"
     . "Имя: {$name}\n"
     . "Телефон: {$phone}\n"
     . "Комментарий: " . ($message !== '' ? $message : 'не указан') . "\n\n"
-    . "Дата: {$date}\n"
+    . "Согласие на обработку персональных данных: получено\n"
+    . "Редакция политики: {$privacyVersion}\n"
+    . "Дата и время: {$date}\n"
     . "IP: {$ip}\n"
     . "User-Agent: {$userAgent}\n";
 
-// Для PHP mail() From должен быть адресом на вашем домене.
-// После создания почты в Beget замените no-reply на реальный ящик, например site@elkoms2022.ru.
+// После создания почты на домене можно заменить no-reply на реальный ящик.
 $headers = [
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
@@ -100,7 +111,11 @@ $sent = mail($recipient, $encodedSubject, $body, implode("\r\n", $headers));
 
 if (!$sent) {
     error_log('Elkoms form: mail() returned false');
-    reply(500, false, 'Не удалось отправить заявку. Позвоните нам по номеру +7 (903) 174-14-68.');
+    reply(
+        500,
+        false,
+        'Не удалось отправить заявку. Позвоните нам по номеру +7 (903) 174-14-68.'
+    );
 }
 
 $_SESSION['last_form_submit'] = time();

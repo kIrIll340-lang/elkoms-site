@@ -1,87 +1,114 @@
-/*
-  Все объекты редактируются здесь.
-  Карточка на главной содержит только preview и title.
-  В images перечислены фотографии, которые открываются внутри выбранного объекта.
-*/
 window.ELKOMS_PROJECTS = [
   {
     id: 'preobrazhensky',
-    category: 'commercial',
-    title: 'Смарт-офисы «Преображенский»',
-    preview: '/assets/images/projects/preobrazhensky/01.webp',
+    title: 'БЦ «Преображенский»',
+    preview: '/assets/images/projects/preobrazhensky/01.jpg',
     images: [
-      '/assets/images/projects/preobrazhensky/01.webp',
-      '/assets/images/projects/preobrazhensky/02.webp',
-      '/assets/images/projects/preobrazhensky/03.webp',
-      '/assets/images/projects/preobrazhensky/04.webp',
-      '/assets/images/projects/preobrazhensky/05.webp',
-      '/assets/images/projects/preobrazhensky/06.webp'
+      '/assets/images/projects/preobrazhensky/01.jpg',
+      '/assets/images/projects/preobrazhensky/02.jpg',
+      '/assets/images/projects/preobrazhensky/03.jpg',
+      '/assets/images/projects/preobrazhensky/04.jpg',
+      '/assets/images/projects/preobrazhensky/05.jpg'
     ]
   },
+
   {
-    id: 'cafe',
-    category: 'commercial',
-    title: 'Кофейня в Москве',
-    preview: '/assets/images/projects/cafe/01.webp',
+    id: 'crocus-expo',
+    title: 'Выставка в «Крокус Экспо»',
+    preview: '/assets/images/projects/crocus-expo/01.jpg',
     images: [
-      '/assets/images/projects/cafe/01.webp',
-      '/assets/images/projects/cafe/02.webp',
-      '/assets/images/projects/cafe/03.webp',
-      '/assets/images/projects/cafe/04.webp'
+      '/assets/images/projects/crocus-expo/01.jpg',
+      '/assets/images/projects/crocus-expo/02.jpg',
+      '/assets/images/projects/crocus-expo/03.jpg'
     ]
   },
+
   {
-    id: 'office',
-    category: 'commercial',
-    title: 'Офисные помещения',
-    preview: '/assets/images/projects/office/02.webp',
+    id: 'rosgvardia',
+    title: 'Здание Росгвардии',
+    preview: '/assets/images/projects/rosgvardia/01.jpg',
     images: [
-      '/assets/images/projects/office/01.webp',
-      '/assets/images/projects/office/02.webp',
-      '/assets/images/projects/office/03.webp',
-      '/assets/images/projects/office/04.webp'
+      '/assets/images/projects/rosgvardia/01.jpg',
+      '/assets/images/projects/rosgvardia/02.jpg'
     ]
   },
+
   {
-    id: 'switchboards',
-    category: 'commercial',
-    title: 'Щитовое оборудование',
-    preview: '/assets/images/projects/switchboards/01.webp',
+    id: 'krasnogorsk',
+    title: 'Квартира в Красногорске',
+    preview: '/assets/images/projects/krasnogorsk/01.jpg',
     images: [
-      '/assets/images/projects/switchboards/01.webp',
-      '/assets/images/projects/switchboards/02.webp',
-      '/assets/images/projects/switchboards/03.webp',
-      '/assets/images/projects/switchboards/04.webp',
-      '/assets/images/projects/switchboards/05.webp'
+      '/assets/images/projects/krasnogorsk/01.jpg',
+      '/assets/images/projects/krasnogorsk/02.jpg',
+      '/assets/images/projects/krasnogorsk/03.jpg'
     ]
   },
+
   {
-    id: 'private-house',
-    category: 'private',
-    title: 'Частный дом, Московская область',
-    preview: '/assets/images/projects/private-house/01.webp',
+    id: 'tsaritsyno',
+    title: 'Квартира в Царицыно',
+    preview: '/assets/images/projects/tsaritsyno/01.jpg',
     images: [
-      '/assets/images/projects/private-house/01.webp',
-      '/assets/images/projects/private-house/02.webp',
-      '/assets/images/projects/private-house/03.webp',
-      '/assets/images/projects/private-house/04.webp',
-      '/assets/images/projects/private-house/05.webp'
+      '/assets/images/projects/tsaritsyno/01.jpg',
+      '/assets/images/projects/tsaritsyno/02.jpg',
+      '/assets/images/projects/tsaritsyno/03.jpg'
     ]
   },
+
   {
-    id: 'apartment',
-    category: 'private',
-    title: 'Квартира в Москве',
-    preview: '/assets/images/projects/apartment/01.webp',
+    id: 'seligerskaya',
+    title: 'Квартира на Селигерской',
+    preview: '/assets/images/projects/seligerskaya/01.jpg',
     images: [
-      '/assets/images/projects/apartment/01.webp',
-      '/assets/images/projects/apartment/02.webp',
-      '/assets/images/projects/apartment/03.webp',
-      '/assets/images/projects/apartment/04.webp',
-      '/assets/images/projects/apartment/05.webp',
-      '/assets/images/projects/apartment/06.webp',
-      '/assets/images/projects/apartment/07.webp',
-      '/assets/images/projects/apartment/08.webp'
+      '/assets/images/projects/seligerskaya/01.jpg',
+      '/assets/images/projects/seligerskaya/02.jpg',
+      '/assets/images/projects/seligerskaya/03.jpg',
+      '/assets/images/projects/seligerskaya/04.jpg'
+    ]
+  },
+
+  {
+    id: 'stupino',
+    title: 'Коттедж в Ступино',
+    preview: '/assets/images/projects/stupino/01.jpg',
+    images: [
+      '/assets/images/projects/stupino/01.jpg',
+      '/assets/images/projects/stupino/02.jpg',
+      '/assets/images/projects/stupino/03.jpg',
+      '/assets/images/projects/stupino/04.jpg'
+    ]
+  },
+
+  {
+    id: 'akademicheskaya',
+    title: 'Офисы на Академической',
+    preview: '/assets/images/projects/akademicheskaya/01.jpg',
+    images: [
+      '/assets/images/projects/akademicheskaya/01.jpg',
+      '/assets/images/projects/akademicheskaya/02.jpg',
+      '/assets/images/projects/akademicheskaya/03.jpg'
+    ]
+  },
+
+  {
+    id: 'bakuninskaya',
+    title: 'Офисы на Бакунинской',
+    preview: '/assets/images/projects/bakuninskaya/01.jpg',
+    images: [
+      '/assets/images/projects/bakuninskaya/01.jpg',
+      '/assets/images/projects/bakuninskaya/02.jpg',
+      '/assets/images/projects/bakuninskaya/03.jpg'
+    ]
+  },
+
+  {
+    id: 'football-academy',
+    title: 'Футбольная академия',
+    preview: '/assets/images/projects/football-academy/01.jpg',
+    images: [
+      '/assets/images/projects/football-academy/01.jpg',
+      '/assets/images/projects/football-academy/02.jpg',
+      '/assets/images/projects/football-academy/03.jpg'
     ]
   }
 ];
