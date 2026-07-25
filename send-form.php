@@ -101,11 +101,10 @@ $body = "Новая заявка с сайта {$siteName}\n\n"
 $headers = [
     'MIME-Version: 1.0',
     'Content-Type: text/plain; charset=UTF-8',
-    'From: ' . $siteName . ' <no-reply@' . $siteDomain . '>',
-    'Reply-To: no-reply@' . $siteDomain,
+    'From: ' . $siteName . ' <site@' . $siteDomain . '>',
+    'Reply-To: site@' . $siteDomain,
     'X-Mailer: PHP/' . PHP_VERSION,
 ];
-
 $encodedSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
 $sent = mail($recipient, $encodedSubject, $body, implode("\r\n", $headers));
 
