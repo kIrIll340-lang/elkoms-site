@@ -168,7 +168,9 @@ svg {
 }
 
 .main-nav a,
-.nav-button {
+.main-nav .nav-button {
+  appearance: none;
+  -webkit-appearance: none;
   position: relative;
   border: 0;
   padding: 0;
@@ -180,7 +182,7 @@ svg {
 }
 
 .main-nav a::after,
-.nav-button::after {
+.main-nav .nav-button::after {
   content: "";
   position: absolute;
   left: 0;
@@ -193,15 +195,15 @@ svg {
 
 .main-nav a:hover,
 .main-nav a:focus-visible,
-.nav-button:hover,
-.nav-button:focus-visible {
+.main-nav .nav-button:hover,
+.main-nav .nav-button:focus-visible {
   color: #fff;
 }
 
 .main-nav a:hover::after,
 .main-nav a:focus-visible::after,
-.nav-button:hover::after,
-.nav-button:focus-visible::after {
+.main-nav .nav-button:hover::after,
+.main-nav .nav-button:focus-visible::after {
   right: 0;
 }
 
@@ -364,7 +366,7 @@ svg {
 
 .button:focus-visible,
 .icon-button:focus-visible,
-.nav-button:focus-visible,
+.main-nav .nav-button:focus-visible,
 .project-card:focus-visible,
 .dialog-close:focus-visible,
 .gallery-arrow:focus-visible,
@@ -1428,7 +1430,7 @@ dialog::backdrop {
   }
 
   .main-nav a::after,
-  .nav-button::after {
+  .main-nav .nav-button::after {
     bottom: -5px;
   }
 
@@ -1701,7 +1703,7 @@ dialog::backdrop {
   }
 
   .main-nav a,
-  .nav-button {
+  .main-nav .nav-button {
     min-height: 28px;
     padding: 4px 0;
     color: #e9e3e3;
@@ -1710,15 +1712,15 @@ dialog::backdrop {
   }
 
   .main-nav a::after,
-  .nav-button::after {
+  .main-nav .nav-button::after {
     display: block;
     bottom: -3px;
   }
 
   .main-nav a:hover,
   .main-nav a:focus-visible,
-  .nav-button:hover,
-  .nav-button:focus-visible {
+  .main-nav .nav-button:hover,
+  .main-nav .nav-button:focus-visible {
     color: #fff;
   }
 
