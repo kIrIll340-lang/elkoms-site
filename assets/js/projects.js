@@ -8,7 +8,8 @@ window.ELKOMS_PROJECTS = [
       '/assets/images/projects/preobrazhensky/02.jpg',
       '/assets/images/projects/preobrazhensky/03.jpg',
       '/assets/images/projects/preobrazhensky/04.jpg',
-      '/assets/images/projects/preobrazhensky/05.jpg'
+      '/assets/images/projects/preobrazhensky/05.jpg',
+      '/assets/images/projects/preobrazhensky/06.jpg'
     ]
   },
 
@@ -25,7 +26,7 @@ window.ELKOMS_PROJECTS = [
 
   {
     id: 'rosgvardia',
-    title: 'Здание Росгвардии',
+    title: 'Реконструкция ВРУ',
     preview: '/assets/images/projects/rosgvardia/01.jpg',
     images: [
       '/assets/images/projects/rosgvardia/01.jpg',
@@ -45,19 +46,8 @@ window.ELKOMS_PROJECTS = [
   },
 
   {
-    id: 'tsaritsyno',
-    title: 'Квартира в Царицыно',
-    preview: '/assets/images/projects/tsaritsyno/01.jpg',
-    images: [
-      '/assets/images/projects/tsaritsyno/01.jpg',
-      '/assets/images/projects/tsaritsyno/02.jpg',
-      '/assets/images/projects/tsaritsyno/03.jpg'
-    ]
-  },
-
-  {
     id: 'seligerskaya',
-    title: 'Квартира на Селигерской',
+    title: 'Квартира на ст.м. Селигерская',
     preview: '/assets/images/projects/seligerskaya/01.jpg',
     images: [
       '/assets/images/projects/seligerskaya/01.jpg',
@@ -81,7 +71,7 @@ window.ELKOMS_PROJECTS = [
 
   {
     id: 'akademicheskaya',
-    title: 'Офисы на Академической',
+    title: 'БЦ на Большой Академической',
     preview: '/assets/images/projects/akademicheskaya/01.jpg',
     images: [
       '/assets/images/projects/akademicheskaya/01.jpg',

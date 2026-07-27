@@ -29,6 +29,10 @@
   const requestOpeners = [...document.querySelectorAll('.js-open-request')];
   const formStartedAt = document.querySelector('#form-started-at');
 
+  const employmentDialog = document.querySelector('#employment-dialog');
+  const employmentClose = document.querySelector('#employment-close');
+  const employmentOpeners = [...document.querySelectorAll('.js-open-employment')];
+
   const privacyDialog = document.querySelector('#privacy-dialog');
   const privacyClose = document.querySelector('#privacy-close');
   const privacyOpen = document.querySelector('#open-privacy');
@@ -43,6 +47,7 @@
   const allDialogs = [
     galleryDialog,
     requestDialog,
+    employmentDialog,
     privacyDialog,
     fullrekDialog
   ].filter(Boolean);
@@ -493,6 +498,32 @@
   requestDialog?.addEventListener('cancel', (event) => {
     event.preventDefault();
     closeRequestDialog();
+  });
+
+  function openEmploymentDialog() {
+    showDialog(
+      employmentDialog,
+      employmentDialog?.querySelector('.employment-actions a')
+    );
+  }
+
+  function closeEmploymentDialog() {
+    closeDialog(employmentDialog);
+  }
+
+  employmentOpeners.forEach((button) => {
+    button.addEventListener('click', openEmploymentDialog);
+  });
+
+  employmentClose?.addEventListener('click', closeEmploymentDialog);
+
+  employmentDialog?.addEventListener('click', (event) => {
+    if (event.target === employmentDialog) closeEmploymentDialog();
+  });
+
+  employmentDialog?.addEventListener('cancel', (event) => {
+    event.preventDefault();
+    closeEmploymentDialog();
   });
 
   requestForm?.addEventListener('submit', async (event) => {

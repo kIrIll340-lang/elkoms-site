@@ -61,6 +61,11 @@ body::before {
   mask-image: linear-gradient(to bottom, black, transparent 72%);
 }
 
+.page-top-anchor {
+  position: absolute;
+  top: 0;
+}
+
 img {
   max-width: 100%;
   height: auto;
@@ -162,13 +167,20 @@ svg {
   font-size: 18px;
 }
 
-.main-nav a {
+.main-nav a,
+.nav-button {
   position: relative;
+  border: 0;
+  padding: 0;
+  background: transparent;
   color: #e9e3e3;
+  cursor: pointer;
+  font: inherit;
   transition: color 0.2s ease;
 }
 
-.main-nav a::after {
+.main-nav a::after,
+.nav-button::after {
   content: "";
   position: absolute;
   left: 0;
@@ -180,12 +192,16 @@ svg {
 }
 
 .main-nav a:hover,
-.main-nav a:focus-visible {
+.main-nav a:focus-visible,
+.nav-button:hover,
+.nav-button:focus-visible {
   color: #fff;
 }
 
 .main-nav a:hover::after,
-.main-nav a:focus-visible::after {
+.main-nav a:focus-visible::after,
+.nav-button:hover::after,
+.nav-button:focus-visible::after {
   right: 0;
 }
 
@@ -348,6 +364,7 @@ svg {
 
 .button:focus-visible,
 .icon-button:focus-visible,
+.nav-button:focus-visible,
 .project-card:focus-visible,
 .dialog-close:focus-visible,
 .gallery-arrow:focus-visible,
@@ -1032,6 +1049,15 @@ dialog::backdrop {
   padding: 42px;
 }
 
+.employment-shell {
+  display: flex;
+  height: min(92dvh, 880px);
+  max-height: min(92dvh, 880px);
+  flex-direction: column;
+  overflow: hidden;
+  padding-bottom: 0;
+}
+
 .request-close,
 .privacy-shell .dialog-close {
   position: absolute;
@@ -1051,6 +1077,73 @@ dialog::backdrop {
   margin: 0 55px 28px 0;
   color: var(--muted);
   font-size: 16px;
+}
+
+.employment-intro {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.employment-photo {
+  position: relative;
+  flex: 1 1 auto;
+  margin: -8px -42px 0;
+  overflow: hidden;
+  min-height: 54%;
+  border-radius: 0 0 20px 20px;
+  background: #151111;
+}
+
+.employment-photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, #0b0909 0%, rgba(11, 9, 9, 0.88) 7%, rgba(11, 9, 9, 0.22) 25%, transparent 42%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.52) 25%, transparent 58%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.34), transparent 34%, transparent 66%, rgba(0, 0, 0, 0.24));
+}
+
+.employment-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 56% 48%;
+}
+
+.employment-actions {
+  position: absolute;
+  right: 32px;
+  bottom: 30px;
+  left: 32px;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+}
+
+.employment-actions .button {
+  width: 100%;
+  min-height: 62px;
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+}
+
+.employment-actions .button-red {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(135deg, #f43a44, #b90f18);
+}
+
+.employment-actions .employment-outline {
+  border-color: rgba(255, 255, 255, 0.72);
+  background: rgba(7, 7, 7, 0.72);
+  color: #fff;
+  backdrop-filter: blur(10px);
+}
+
+.employment-actions .employment-outline:hover {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.94);
+  color: #0b0b0b;
 }
 
 .request-form {
@@ -1287,7 +1380,7 @@ dialog::backdrop {
 
 @media (max-width: 800px) {
   :root {
-    --header-height: auto;
+    --header-height: 132px;
   }
 
   body {
@@ -1299,7 +1392,8 @@ dialog::backdrop {
   }
 
   .site-header {
-    position: relative;
+    position: sticky;
+    top: 0;
   }
 
   .header-inner {
@@ -1333,7 +1427,8 @@ dialog::backdrop {
     font-size: 14px;
   }
 
-  .main-nav a::after {
+  .main-nav a::after,
+  .nav-button::after {
     bottom: -5px;
   }
 
@@ -1521,6 +1616,24 @@ dialog::backdrop {
     padding: 34px 22px 24px;
   }
 
+  .employment-shell {
+    height: min(92dvh, 820px);
+    max-height: min(92dvh, 820px);
+    padding-bottom: 0;
+  }
+
+  .employment-photo {
+    margin: -6px -22px 0;
+    min-height: 54%;
+  }
+
+  .employment-actions {
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+    gap: 10px;
+  }
+
   .request-close {
     top: 13px;
     right: 13px;
@@ -1542,6 +1655,28 @@ dialog::backdrop {
 }
 
 @media (max-width: 480px) {
+  :root {
+    --header-height: 148px;
+  }
+
+  .site-header {
+    background: rgba(4, 4, 4, 0.92);
+  }
+
+  .header-inner {
+    gap: 8px;
+    padding-block: 10px 9px;
+  }
+
+  .brand-logo {
+    width: 54px;
+    height: 54px;
+  }
+
+  .brand-name {
+    font-size: 27px;
+  }
+
   .hero {
     min-height: 870px;
   }
@@ -1556,44 +1691,35 @@ dialog::backdrop {
   }
 
   .main-nav {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 4px;
-    padding: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    background:
-      linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018)),
-      rgba(10, 10, 10, 0.62);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 12px;
+    padding-top: 2px;
+    border-top: 0;
     font-size: 13.5px;
   }
 
-  .main-nav a {
-    min-width: 0;
-    min-height: 40px;
-    display: grid;
-    place-items: center;
-    padding: 8px 6px;
-    border-radius: 9px;
-    color: #eee7e7;
-    line-height: 1.1;
-    text-align: center;
-    transition:
-      background 0.2s ease,
-      color 0.2s ease,
-      box-shadow 0.2s ease;
+  .main-nav a,
+  .nav-button {
+    min-height: 28px;
+    padding: 4px 0;
+    color: #e9e3e3;
+    line-height: 1.2;
+    white-space: nowrap;
   }
 
-  .main-nav a::after {
-    display: none;
+  .main-nav a::after,
+  .nav-button::after {
+    display: block;
+    bottom: -3px;
   }
 
   .main-nav a:hover,
-  .main-nav a:focus-visible {
-    background: rgba(169, 17, 25, 0.32);
+  .main-nav a:focus-visible,
+  .nav-button:hover,
+  .nav-button:focus-visible {
     color: #fff;
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
   }
 
   .projects-heading .carousel-arrows {

@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
 declare(strict_types=1);
 
@@ -47,7 +47,7 @@ session_start();
  * Письма отправляются от созданного в Beget ящика
  * site@elkoms2022.ru.
  */
-$siteName = 'ЭлКомс';
+$siteName = 'ЭлКомС';
 $siteDomain = 'elkoms2022.ru';
 
 $recipient = 'elkoms2022@mail.ru';
