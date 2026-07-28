@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
 date_default_timezone_set('Europe/Moscow');
 
 header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 
-function reply(int $status, bool $ok, string $message): never
+function reply($status, $ok, $message)
 {
     http_response_code($status);
 
@@ -23,18 +21,44 @@ function reply(int $status, bool $ok, string $message): never
     exit;
 }
 
-function clean(string $value): string
+function clean($value)
 {
     $value = trim($value);
 
-    return preg_replace(
+    $cleaned = preg_replace(
         '/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u',
         '',
         $value
-    ) ?? '';
+    );
+
+    return $cleaned !== null ? $cleaned : '';
 }
 
-if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {
+function text_length($value)
+{
+    if (function_exists('mb_strlen')) {
+        return mb_strlen($value, 'UTF-8');
+    }
+
+    preg_match_all('/./us', $value, $matches);
+
+    return count($matches[0]);
+}
+
+function text_slice($value, $start, $length)
+{
+    if (function_exists('mb_substr')) {
+        return mb_substr($value, $start, $length, 'UTF-8');
+    }
+
+    preg_match_all('/./us', $value, $matches);
+
+    return implode('', array_slice($matches[0], $start, $length));
+}
+
+$requestMethod = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : '';
+
+if ($requestMethod !== 'POST') {
     reply(405, false, 'Разрешён только POST-запрос.');
 }
 
@@ -53,15 +77,15 @@ $siteDomain = 'elkoms2022.ru';
 $recipient = 'elkoms2022@mail.ru';
 $sender = 'site@elkoms2022.ru';
 
-$name = clean((string) ($_POST['name'] ?? ''));
-$phone = clean((string) ($_POST['phone'] ?? ''));
-$message = clean((string) ($_POST['message'] ?? ''));
-$website = clean((string) ($_POST['website'] ?? ''));
-$consent = (string) ($_POST['consent'] ?? '');
+$name = clean((string) (isset($_POST['name']) ? $_POST['name'] : ''));
+$phone = clean((string) (isset($_POST['phone']) ? $_POST['phone'] : ''));
+$message = clean((string) (isset($_POST['message']) ? $_POST['message'] : ''));
+$website = clean((string) (isset($_POST['website']) ? $_POST['website'] : ''));
+$consent = (string) (isset($_POST['consent']) ? $_POST['consent'] : '');
 $privacyVersion = clean(
-    (string) ($_POST['privacy_version'] ?? 'не указана')
+    (string) (isset($_POST['privacy_version']) ? $_POST['privacy_version'] : 'не указана')
 );
-$startedAt = (int) ($_POST['started_at'] ?? 0);
+$startedAt = (int) (isset($_POST['started_at']) ? $_POST['started_at'] : 0);
 
 /*
  * Honeypot.
@@ -89,7 +113,7 @@ if ($startedAt <= 0 || $elapsedMs < 1800) {
  * Не разрешаем повторную отправку чаще одного раза
  * в 45 секунд в рамках одной сессии.
  */
-$lastSubmit = (int) ($_SESSION['last_form_submit'] ?? 0);
+$lastSubmit = (int) (isset($_SESSION['last_form_submit']) ? $_SESSION['last_form_submit'] : 0);
 
 if ($lastSubmit > 0 && time() - $lastSubmit < 45) {
     reply(
@@ -102,7 +126,7 @@ if ($lastSubmit > 0 && time() - $lastSubmit < 45) {
 /*
  * Проверка имени.
  */
-$nameLength = mb_strlen($name);
+$nameLength = text_length($name);
 
 if ($name === '' || $nameLength < 2 || $nameLength > 80) {
     reply(422, false, 'Укажите корректное имя.');
@@ -111,7 +135,8 @@ if ($name === '' || $nameLength < 2 || $nameLength > 80) {
 /*
  * Проверка телефона.
  */
-$phoneDigits = preg_replace('/\D+/', '', $phone) ?? '';
+$phoneDigits = preg_replace('/\D+/', '', $phone);
+$phoneDigits = $phoneDigits !== null ? $phoneDigits : '';
 $phoneLength = strlen($phoneDigits);
 
 if ($phoneLength < 10 || $phoneLength > 15) {
@@ -121,7 +146,7 @@ if ($phoneLength < 10 || $phoneLength > 15) {
 /*
  * Проверка комментария.
  */
-if (mb_strlen($message) > 1500) {
+if (text_length($message) > 1500) {
     reply(422, false, 'Комментарий слишком длинный.');
 }
 
@@ -139,17 +164,17 @@ if ($consent !== '1') {
 /*
  * Ограничиваем длину служебных данных.
  */
-if (mb_strlen($privacyVersion) > 40) {
-    $privacyVersion = mb_substr($privacyVersion, 0, 40);
+if (text_length($privacyVersion) > 40) {
+    $privacyVersion = text_slice($privacyVersion, 0, 40);
 }
 
-$ip = clean((string) ($_SERVER['REMOTE_ADDR'] ?? 'не определён'));
+$ip = clean((string) (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'не определён'));
 $userAgent = clean(
-    (string) ($_SERVER['HTTP_USER_AGENT'] ?? 'не определён')
+    (string) (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'не определён')
 );
 
-if (mb_strlen($userAgent) > 500) {
-    $userAgent = mb_substr($userAgent, 0, 500);
+if (text_length($userAgent) > 500) {
+    $userAgent = text_slice($userAgent, 0, 500);
 }
 
 $date = date('d.m.Y H:i:s');

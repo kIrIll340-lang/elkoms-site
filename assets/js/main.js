@@ -56,6 +56,11 @@
   let activeImageIndex = 0;
   let galleryTouchStartX = 0;
   let galleryTouchStartY = 0;
+  let gallerySwipeHandled = false;
+  let projectTouchStartX = 0;
+  let projectTouchStartY = 0;
+  let projectTouchStartPage = 0;
+  let projectTouchMoved = false;
   let projectDotsFrame = 0;
 
   const escapeHtml = (value) => String(value)
@@ -228,8 +233,13 @@
     const step = cardStep();
     if (!step) return;
 
-    viewport.scrollBy({
-      left: direction * step,
+    const targetPage = Math.min(
+      Math.max(currentPageIndex() + direction, 0),
+      pageCount() - 1
+    );
+
+    viewport.scrollTo({
+      left: targetPage * step,
       behavior: 'smooth'
     });
   }
@@ -244,6 +254,58 @@
       updateCarouselButtons();
     });
   }, { passive: true });
+
+  viewport?.addEventListener('touchstart', (event) => {
+    const touch = event.changedTouches[0];
+    projectTouchStartX = touch.clientX;
+    projectTouchStartY = touch.clientY;
+    projectTouchStartPage = currentPageIndex();
+    projectTouchMoved = false;
+  }, { passive: true });
+
+  viewport?.addEventListener('touchmove', (event) => {
+    const touch = event.changedTouches[0];
+    const diffX = touch.clientX - projectTouchStartX;
+    const diffY = touch.clientY - projectTouchStartY;
+
+    if (Math.abs(diffX) > 8 && Math.abs(diffX) > Math.abs(diffY)) {
+      projectTouchMoved = true;
+      event.preventDefault();
+    }
+  }, { passive: false });
+
+  viewport?.addEventListener('touchend', (event) => {
+    const step = cardStep();
+    if (!viewport || !step) return;
+
+    const touch = event.changedTouches[0];
+    const diffX = touch.clientX - projectTouchStartX;
+    const diffY = touch.clientY - projectTouchStartY;
+    const isHorizontalSwipe = Math.abs(diffX) > 45 && Math.abs(diffX) > Math.abs(diffY);
+    const direction = diffX < 0 ? 1 : -1;
+    const targetPage = isHorizontalSwipe
+      ? Math.min(Math.max(projectTouchStartPage + direction, 0), pageCount() - 1)
+      : projectTouchStartPage;
+
+    viewport.scrollTo({
+      left: targetPage * step,
+      behavior: 'smooth'
+    });
+
+    if (projectTouchMoved) {
+      window.setTimeout(() => {
+        projectTouchMoved = false;
+      }, 250);
+    }
+  }, { passive: true });
+
+  viewport?.addEventListener('click', (event) => {
+    if (!projectTouchMoved) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+    projectTouchMoved = false;
+  }, true);
 
   viewport?.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowLeft') {
@@ -435,16 +497,28 @@
     const touch = event.changedTouches[0];
     galleryTouchStartX = touch.clientX;
     galleryTouchStartY = touch.clientY;
+    gallerySwipeHandled = false;
   }, { passive: true });
 
+  galleryStage?.addEventListener('touchmove', (event) => {
+    const touch = event.changedTouches[0];
+    const diffX = touch.clientX - galleryTouchStartX;
+    const diffY = touch.clientY - galleryTouchStartY;
+
+    if (Math.abs(diffX) > 8 && Math.abs(diffX) > Math.abs(diffY)) {
+      event.preventDefault();
+    }
+  }, { passive: false });
+
   galleryStage?.addEventListener('touchend', (event) => {
-    if (!activeProject || activeProject.images.length < 2) return;
+    if (!activeProject || activeProject.images.length < 2 || gallerySwipeHandled) return;
 
     const touch = event.changedTouches[0];
     const diffX = touch.clientX - galleryTouchStartX;
     const diffY = touch.clientY - galleryTouchStartY;
 
     if (Math.abs(diffX) > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+      gallerySwipeHandled = true;
       setGalleryImage(activeImageIndex + (diffX < 0 ? 1 : -1));
     }
   }, { passive: true });

@@ -524,6 +524,7 @@ svg {
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   overscroll-behavior-inline: contain;
+  touch-action: pan-y pinch-zoom;
 }
 
 .project-viewport::-webkit-scrollbar {
@@ -951,6 +952,7 @@ dialog::backdrop {
   border-radius: 18px;
   background: rgba(0, 0, 0, 0.7);
   box-shadow: var(--shadow);
+  touch-action: pan-y pinch-zoom;
 }
 
 .gallery-stage > img {
@@ -1614,6 +1616,16 @@ dialog::backdrop {
     width: calc(100vw - 24px);
     height: calc(100dvh - 28px);
     min-height: 0;
+    align-items: center;
+  }
+
+  .gallery-topbar,
+  .gallery-footer {
+    align-self: stretch;
+  }
+
+  .gallery-stage {
+    align-self: center;
   }
 
   .gallery-stage > img {
