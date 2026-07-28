@@ -9,7 +9,9 @@ window.ELKOMS_PROJECTS = [
       '/assets/images/projects/preobrazhensky/03.jpg',
       '/assets/images/projects/preobrazhensky/04.jpg',
       '/assets/images/projects/preobrazhensky/05.jpg',
-      '/assets/images/projects/preobrazhensky/06.jpg'
+      '/assets/images/projects/preobrazhensky/06.jpg',
+      '/assets/images/projects/preobrazhensky/07.jpg',
+      '/assets/images/projects/preobrazhensky/08.jpg'
     ]
   },
 
@@ -20,7 +22,8 @@ window.ELKOMS_PROJECTS = [
     images: [
       '/assets/images/projects/crocus-expo/01.jpg',
       '/assets/images/projects/crocus-expo/02.jpg',
-      '/assets/images/projects/crocus-expo/03.jpg'
+      '/assets/images/projects/crocus-expo/03.jpg',
+      '/assets/images/projects/crocus-expo/04.jpg'
     ]
   },
 
@@ -41,7 +44,8 @@ window.ELKOMS_PROJECTS = [
     images: [
       '/assets/images/projects/krasnogorsk/01.jpg',
       '/assets/images/projects/krasnogorsk/02.jpg',
-      '/assets/images/projects/krasnogorsk/03.jpg'
+      '/assets/images/projects/krasnogorsk/03.jpg',
+      '/assets/images/projects/krasnogorsk/04.jpg'
     ]
   },
 
@@ -53,7 +57,8 @@ window.ELKOMS_PROJECTS = [
       '/assets/images/projects/seligerskaya/01.jpg',
       '/assets/images/projects/seligerskaya/02.jpg',
       '/assets/images/projects/seligerskaya/03.jpg',
-      '/assets/images/projects/seligerskaya/04.jpg'
+      '/assets/images/projects/seligerskaya/04.jpg',
+      '/assets/images/projects/seligerskaya/05.jpg'
     ]
   },
 
@@ -65,7 +70,10 @@ window.ELKOMS_PROJECTS = [
       '/assets/images/projects/stupino/01.jpg',
       '/assets/images/projects/stupino/02.jpg',
       '/assets/images/projects/stupino/03.jpg',
-      '/assets/images/projects/stupino/04.jpg'
+      '/assets/images/projects/stupino/04.jpg',
+      '/assets/images/projects/stupino/05.jpg',
+      '/assets/images/projects/stupino/06.jpg',
+      '/assets/images/projects/stupino/07.jpg'
     ]
   },
 
@@ -87,18 +95,45 @@ window.ELKOMS_PROJECTS = [
     images: [
       '/assets/images/projects/bakuninskaya/01.jpg',
       '/assets/images/projects/bakuninskaya/02.jpg',
-      '/assets/images/projects/bakuninskaya/03.jpg'
+      '/assets/images/projects/bakuninskaya/03.jpg',
+      '/assets/images/projects/bakuninskaya/04.jpg',
+      '/assets/images/projects/bakuninskaya/05.jpg',
+      '/assets/images/projects/bakuninskaya/06.jpg'
     ]
   },
 
   {
     id: 'football-academy',
-    title: 'Футбольная академия',
+    title: 'Московская футбольная акдемия на Вятской',
     preview: '/assets/images/projects/football-academy/01.jpg',
     images: [
       '/assets/images/projects/football-academy/01.jpg',
       '/assets/images/projects/football-academy/02.jpg',
       '/assets/images/projects/football-academy/03.jpg'
+    ]
+  },
+
+  {
+    id: 'sushevskiy',
+    title: 'БЦ на Сущёвском Валу',
+    preview: '/assets/images/projects/sdmcentr/01.jpg',
+    images: [
+      '/assets/images/projects/sdmcentr/01.jpg',
+      '/assets/images/projects/sdmcentr/02.jpg',
+      '/assets/images/projects/sdmcentr/03.jpg',
+      '/assets/images/projects/sdmcentr/04.jpg',
+      '/assets/images/projects/sdmcentr/05.jpg'
+    ]
+  },
+
+  {
+    id: 'fridriha',
+    title: 'Московская акдемия бокса на Фридриха Энгельса',
+    preview: '/assets/images/projects/box-academy/01.jpg',
+    images: [
+      '/assets/images/projects/boxfootball-academy/01.jpg',
+      '/assets/images/projects/box-academy/02.jpg',
+      '/assets/images/projects/box-academy/03.jpg'
     ]
   }
 ];

@@ -121,6 +121,18 @@ svg {
   transform: translateY(0);
 }
 
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
 .site-header {
   position: sticky;
   top: 0;
@@ -314,6 +326,18 @@ svg {
   font-weight: 560;
   letter-spacing: -0.025em;
   text-wrap: balance;
+}
+
+.hero-title-sign {
+  width: 100%;
+  max-width: none !important;
+  line-height: 0;
+}
+
+.hero-title-sign img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .hero p {
@@ -1127,25 +1151,31 @@ dialog::backdrop {
 .employment-actions .button {
   width: 100%;
   min-height: 62px;
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.66);
+  background: rgba(10, 9, 9, 0.24);
+  color: #fff;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 16px 34px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(8px) saturate(115%);
 }
 
 .employment-actions .button-red {
-  border-color: rgba(255, 255, 255, 0.18);
-  background: linear-gradient(135deg, #f43a44, #b90f18);
+  border-color: rgba(255, 72, 82, 0.82);
+  background: rgba(185, 15, 24, 0.22);
 }
 
 .employment-actions .employment-outline {
-  border-color: rgba(255, 255, 255, 0.72);
-  background: rgba(7, 7, 7, 0.72);
-  color: #fff;
-  backdrop-filter: blur(10px);
+  border-color: rgba(255, 255, 255, 0.62);
+  background: rgba(7, 7, 7, 0.18);
 }
 
+.employment-actions .button-red:hover,
 .employment-actions .employment-outline:hover {
-  border-color: #fff;
-  background: rgba(255, 255, 255, 0.94);
-  color: #0b0b0b;
+  border-color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
 }
 
 .request-form {

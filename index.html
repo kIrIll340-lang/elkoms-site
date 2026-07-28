@@ -21,7 +21,7 @@
   <link rel="apple-touch-icon" href="/assets/images/apple-touch-icon.png">
 
 <link rel="preload" href="/assets/images/hero-new.jpg" as="image">
-  <link rel="stylesheet" href="/assets/css/styles.css?v=20260727-2">
+  <link rel="stylesheet" href="/assets/css/styles.css?v=20260728-2">
 
   <script type="application/ld+json">
   {
@@ -67,10 +67,10 @@
       </a>
 
       <nav class="main-nav" aria-label="Основная навигация">
-        <button class="nav-button js-open-employment" type="button">Трудоустройство</button>
         <a href="#top">Главная</a>
         <a href="#services">Услуги</a>
         <a href="#projects">Наши объекты</a>
+        <button class="nav-button js-open-employment" type="button">Вакансии</button>
         <a href="#contacts">Контакты</a>
       </nav>
     </div>
@@ -84,11 +84,16 @@
 
       <div class="container hero-inner">
         <div class="hero-copy">
-          <h1 id="hero-title">Электромонтаж без постоянного контроля, сорванных сроков и неприятных сюрпризов.</h1>
+          <h1 class="hero-title-sign" id="hero-title">
+            <span class="visually-hidden">Осторожно! Качественный электромонтаж</span>
+            <img src="/assets/images/hero-warning.svg?v=20260728-1" alt="" width="1200" height="400" fetchpriority="high">
+          </h1>
 
-          <p>Мы берём на себя весь процесс — от точного расчёта до сдачи готового объекта. Работаем строго по договору, соблюдаем сроки и предоставляем гарантию 1 год. Наши специалисты имеют профильное образование, профессиональную подготовку и необходимые группы по электробезопасности.</p>
+          <p>Мы электромонтажная компания выполняющая работы по монтажу силовых и слаботочных систем любой сложности. Работаем с частными, коммерческими и государственными контрактами.</p>
+          <p>При выполнении работ соблюдаем качество и все требуемые нормы и правила ПУЭ, СНиП, ГОСТ, СП, а также предоставляем гарантийный срок на выполненные нами работы.</p> 
+          <p>Наши специалисты имеют профильное образование, профессиональную подготовку и необходимые группы по электробезопасности.</p>
 
-          <p>За 4 года работы мы научились главному — делать так, чтобы заказчик был спокоен за результат.</p>
+          <p>За 5 лет работы мы научились главному — делать так, чтобы заказчик был доволен результатом.</p>
 
           <button class="button button-light js-open-request" type="button">
             <span>Оставить заявку</span>
@@ -146,7 +151,7 @@
             <li>Монтаж контура заземления</li>
             <li>Монтаж молниезащиты</li>
             <li>Монтаж розеток и выключателей</li>
-            <li>Монтаж розеток и выключателей</li>
+            <li>Закупка материалов и оборудования</li>
           </ul>
         </div>
       </div>
@@ -261,7 +266,7 @@
 
       <p class="eyebrow">Обсудим ваш объект</p>
       <h2 id="request-title">Оставить заявку</h2>
-      <p class="request-intro">Оставьте контакты — мы уточним задачу и подготовим понятный расчёт без скрытых расходов.</p>
+      <p class="request-intro">Оставьте контакты — мы уточним задачу и подготовим коммерческое предложение.</p>
 
       <form class="request-form" id="request-form" action="/send-form.php" method="post" novalidate>
         <label>
@@ -314,12 +319,12 @@
 
       <p class="eyebrow">Работа в ЭлКомС</p>
       <h2 id="employment-title">Трудоустройство</h2>
-      <p class="request-intro employment-intro">Ты электромонтажник и ищешь работу, где можно развиваться? Приглашаем тебя в наш сплочённый коллектив. Понятные задачи, поддержка опытных коллег и индивидуальный подход к каждому специалисту. Стань частью ЭлКомС и развивайся вместе с нами.</p>
+      <p class="request-intro employment-intro">Ты электромонтажник или ответственный прораб, и ищешь работу где можно развиваться? Приглашаем тебя в наш сплочённый коллектив. Понятные задачи, поддержка опытных коллег и индивидуальный подход к каждому специалисту. Стань частью ЭлКомС и развивайся вместе с нами.</p>
 
       <figure class="employment-photo">
         <img src="/assets/images/findwork.jpg" alt="Электромонтажник ЭлКомС рядом с собранным электрощитом" width="1200" height="1600" loading="lazy" decoding="async">
         <div class="employment-actions">
-          <a class="button button-red" href="https://hh.ru/employer/9999933?hhtmFrom=vacancy&amp;tab=DESCRIPTION" target="_blank" rel="noopener">
+          <a class="button button-outline employment-outline" href="https://hh.ru/employer/9999933?hhtmFrom=vacancy&amp;tab=DESCRIPTION" target="_blank" rel="noopener">
             <span>Вакансия на hh.ru</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
           </a>
