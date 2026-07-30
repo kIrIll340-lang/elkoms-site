@@ -1737,6 +1737,7 @@ dialog::backdrop {
 
   .request-dialog {
     overflow-y: auto;
+    padding-top: 14px;
   }
 
   .request-dialog[open] {
