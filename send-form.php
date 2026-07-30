@@ -86,6 +86,7 @@ $privacyVersion = clean(
     (string) (isset($_POST['privacy_version']) ? $_POST['privacy_version'] : 'не указана')
 );
 $startedAt = (int) (isset($_POST['started_at']) ? $_POST['started_at'] : 0);
+$formType = clean((string) (isset($_POST['form_type']) ? $_POST['form_type'] : 'work_request'));
 
 /*
  * Honeypot.
@@ -168,6 +169,15 @@ if (text_length($privacyVersion) > 40) {
     $privacyVersion = text_slice($privacyVersion, 0, 40);
 }
 
+$allowedFormTypes = [
+    'work_request' => true,
+    'vacancy_response' => true,
+];
+
+if (!isset($allowedFormTypes[$formType])) {
+    $formType = 'work_request';
+}
+
 $ip = clean((string) (isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : 'не определён'));
 $userAgent = clean(
     (string) (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : 'не определён')
@@ -179,7 +189,12 @@ if (text_length($userAgent) > 500) {
 
 $date = date('d.m.Y H:i:s');
 
-$subject = 'Новая заявка с сайта ' . $siteDomain;
+$subjects = [
+    'work_request' => 'Заявка на работу',
+    'vacancy_response' => 'Отклик на вакансию',
+];
+
+$subject = $subjects[$formType];
 
 $body = "Новая заявка с сайта {$siteName}\n\n"
     . "Имя: {$name}\n"

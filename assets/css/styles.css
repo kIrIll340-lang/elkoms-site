@@ -184,12 +184,16 @@ svg {
   appearance: none;
   -webkit-appearance: none;
   position: relative;
+  display: inline-flex;
+  min-height: 34px;
+  align-items: center;
   border: 0;
   padding: 0;
   background: transparent;
   color: #e9e3e3;
   cursor: pointer;
   font: inherit;
+  line-height: 1.2;
   transition: color 0.2s ease;
 }
 
@@ -1206,7 +1210,7 @@ dialog::backdrop {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 56% 48%;
+  object-position: 56% 56%;
 }
 
 .employment-actions {
@@ -1729,6 +1733,14 @@ dialog::backdrop {
     align-items: center;
   }
 
+  .request-dialog {
+    overflow-y: auto;
+  }
+
+  .request-dialog[open] {
+    align-items: start;
+  }
+
   .gallery-topbar,
   .gallery-footer {
     align-self: stretch;
@@ -1744,8 +1756,7 @@ dialog::backdrop {
   }
 
   .gallery-arrow {
-    width: 46px;
-    height: 46px;
+    display: none;
   }
 
   .gallery-arrow-prev {
@@ -1771,8 +1782,8 @@ dialog::backdrop {
   }
 
   .employment-shell {
-    height: min(92dvh, 820px);
-    max-height: min(92dvh, 820px);
+    height: 112dvh;
+    max-height: none;
     padding-bottom: 0;
   }
 
@@ -1783,9 +1794,21 @@ dialog::backdrop {
 
   .employment-actions {
     right: 20px;
-    bottom: 20px;
+    bottom: 10px;
     left: 20px;
+    gap: 8px;
+  }
+
+  .employment-actions .button {
     gap: 10px;
+    min-height: 46px;
+    padding: 9px 18px;
+    font-size: 15.5px;
+    text-align: center;
+  }
+
+  .employment-actions .button svg {
+    flex: 0 0 auto;
   }
 
   .request-close {
@@ -1836,9 +1859,9 @@ dialog::backdrop {
   }
 
   .hero-photo {
-    margin-top: -104px;
+    margin-top: -72px;
     min-height: clamp(450px, 122vw, 540px);
-    background-position: 62% 48%;
+    background-position: 62% 44%;
   }
 
   .hero-inner {

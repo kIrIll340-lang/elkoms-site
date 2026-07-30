@@ -28,10 +28,16 @@
   const formStatus = document.querySelector('#form-status');
   const requestOpeners = [...document.querySelectorAll('.js-open-request')];
   const formStartedAt = document.querySelector('#form-started-at');
+  const formType = document.querySelector('#form-type');
+  const requestTitle = document.querySelector('#request-title');
+  const requestIntro = document.querySelector('#request-dialog .request-intro');
+  const requestMessage = document.querySelector('#request-form textarea[name="message"]');
+  const requestSubmitText = document.querySelector('#request-form .request-submit span');
 
   const employmentDialog = document.querySelector('#employment-dialog');
   const employmentClose = document.querySelector('#employment-close');
   const employmentOpeners = [...document.querySelectorAll('.js-open-employment')];
+  const vacancyRequestOpeners = [...document.querySelectorAll('.js-open-vacancy-request')];
 
   const privacyDialog = document.querySelector('#privacy-dialog');
   const privacyClose = document.querySelector('#privacy-close');
@@ -539,7 +545,34 @@
     }
   });
 
-  function openRequestDialog() {
+  const requestFormModes = {
+    work_request: {
+      title: 'Оставить заявку',
+      intro: 'Оставьте контакты — мы уточним задачу и подготовим коммерческое предложение.',
+      messagePlaceholder: 'Кратко опишите объект и необходимые работы',
+      submitText: 'Отправить заявку'
+    },
+    vacancy_response: {
+      title: 'Отклик на вакансию',
+      intro: 'Оставьте контакты — мы свяжемся с вами и обсудим условия работы.',
+      messagePlaceholder: 'Кратко расскажите об опыте и желаемой вакансии',
+      submitText: 'Отправить отклик'
+    }
+  };
+
+  function setRequestFormMode(mode = 'work_request') {
+    const config = requestFormModes[mode] || requestFormModes.work_request;
+
+    if (formType) formType.value = mode;
+    if (requestTitle) requestTitle.textContent = config.title;
+    if (requestIntro) requestIntro.textContent = config.intro;
+    if (requestMessage) requestMessage.placeholder = config.messagePlaceholder;
+    if (requestSubmitText) requestSubmitText.textContent = config.submitText;
+  }
+
+  function openRequestDialog(mode = 'work_request') {
+    setRequestFormMode(mode);
+
     if (formStatus) {
       formStatus.textContent = '';
       formStatus.className = 'form-status';
@@ -560,7 +593,7 @@
   }
 
   requestOpeners.forEach((button) => {
-    button.addEventListener('click', openRequestDialog);
+    button.addEventListener('click', () => openRequestDialog('work_request'));
   });
 
   requestClose?.addEventListener('click', closeRequestDialog);
@@ -587,6 +620,13 @@
 
   employmentOpeners.forEach((button) => {
     button.addEventListener('click', openEmploymentDialog);
+  });
+
+  vacancyRequestOpeners.forEach((button) => {
+    button.addEventListener('click', () => {
+      closeEmploymentDialog();
+      openRequestDialog('vacancy_response');
+    });
   });
 
   employmentClose?.addEventListener('click', closeEmploymentDialog);

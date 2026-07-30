@@ -318,6 +318,7 @@
 
         <input type="hidden" name="started_at" id="form-started-at" value="">
         <input type="hidden" name="privacy_version" value="25.07.2026">
+        <input type="hidden" name="form_type" id="form-type" value="work_request">
 
         <label class="consent-row">
           <input type="checkbox" name="consent" value="1" required>
@@ -351,6 +352,10 @@
       <figure class="employment-photo">
         <img src="/assets/images/findwork.jpg" alt="Электромонтажник ЭлКомС рядом с собранным электрощитом" width="1200" height="1600" loading="lazy" decoding="async">
         <div class="employment-actions">
+          <button class="button button-red js-open-vacancy-request" type="button">
+            <span>Откликнуться на вакансию</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
           <a class="button button-outline employment-outline" href="https://hh.ru/employer/9999933?hhtmFrom=vacancy&amp;tab=DESCRIPTION" target="_blank" rel="noopener">
             <span>Вакансия на hh.ru</span>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
