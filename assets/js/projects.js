@@ -30,10 +30,14 @@ window.ELKOMS_PROJECTS = [
   {
     id: 'rosgvardia',
     title: 'Реконструкция ВРУ',
-    preview: '/assets/images/projects/rosgvardia/01.jpg',
+    preview: '/assets/images/projects/rekonstructionVRU/01.jpg',
     images: [
-      '/assets/images/projects/rosgvardia/01.jpg',
-      '/assets/images/projects/rosgvardia/02.jpg'
+      '/assets/images/projects/rekonstructionVRU/01.jpg',
+      '/assets/images/projects/rekonstructionVRU/02.jpg',
+      '/assets/images/projects/rekonstructionVRU/03.jpg',
+      '/assets/images/projects/rekonstructionVRU/04.jpg',
+      '/assets/images/projects/rekonstructionVRU/05.jpg',
+      '/assets/images/projects/rekonstructionVRU/06.jpg'
     ]
   },
 
@@ -109,7 +113,14 @@ window.ELKOMS_PROJECTS = [
     images: [
       '/assets/images/projects/football-academy/01.jpg',
       '/assets/images/projects/football-academy/02.jpg',
-      '/assets/images/projects/football-academy/03.jpg'
+      '/assets/images/projects/football-academy/03.jpg',
+      '/assets/images/projects/football-academy/04.jpg',
+      '/assets/images/projects/football-academy/05.jpg',
+      '/assets/images/projects/football-academy/06.jpg',
+      '/assets/images/projects/football-academy/07.jpg',
+      '/assets/images/projects/football-academy/08.jpg',
+      '/assets/images/projects/football-academy/09.jpg',
+      '/assets/images/projects/football-academy/10.jpg'
     ]
   },
 
@@ -131,9 +142,33 @@ window.ELKOMS_PROJECTS = [
     title: 'Московская акдемия бокса на Фридриха Энгельса',
     preview: '/assets/images/projects/box-academy/01.jpg',
     images: [
-      '/assets/images/projects/boxfootball-academy/01.jpg',
+      '/assets/images/projects/box-academy/01.jpg',
       '/assets/images/projects/box-academy/02.jpg',
-      '/assets/images/projects/box-academy/03.jpg'
+      '/assets/images/projects/box-academy/03.jpg',
+      '/assets/images/projects/box-academy/04.jpg',
+      '/assets/images/projects/box-academy/05.jpg',
+      '/assets/images/projects/box-academy/06.jpg',
+      '/assets/images/projects/box-academy/07.jpg',
+      '/assets/images/projects/box-academy/08.jpg',
+      '/assets/images/projects/box-academy/09.jpg',
+      '/assets/images/projects/box-academy/10.jpg',
+      '/assets/images/projects/box-academy/11.jpg',
+      '/assets/images/projects/box-academy/12.jpg',
+      '/assets/images/projects/box-academy/13.jpg',
+      '/assets/images/projects/box-academy/14.jpg'
+    ]
+  },
+
+   {
+    id: 'molniezashita',
+    title: 'Молниезащита',
+    preview: '/assets/images/projects/molniezashita/01.jpg',
+    images: [
+      '/assets/images/projects/molniezashita/01.jpg',
+      '/assets/images/projects/molniezashita/02.jpg',
+      '/assets/images/projects/molniezashita/03.jpg',
+      '/assets/images/projects/molniezashita/04.jpg',
+      '/assets/images/projects/molniezashita/05.jpg'
     ]
   }
 ];
