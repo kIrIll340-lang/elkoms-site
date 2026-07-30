@@ -1211,22 +1211,23 @@ dialog::backdrop {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 56% 56%;
+  object-position: 56% 64%;
 }
 
 .employment-actions {
   position: absolute;
   right: 32px;
-  bottom: 30px;
+  bottom: 18px;
   left: 32px;
   z-index: 1;
   display: grid;
-  gap: 14px;
+  gap: 11px;
 }
 
 .employment-actions .button {
   width: 100%;
-  min-height: 62px;
+  min-height: 52px;
+  padding-block: 10px;
   border-color: rgba(255, 255, 255, 0.66);
   background: rgba(10, 9, 9, 0.24);
   color: #fff;
@@ -1783,14 +1784,20 @@ dialog::backdrop {
   }
 
   .employment-shell {
-    height: 112dvh;
-    max-height: none;
+    height: min(92dvh, 820px);
+    max-height: min(92dvh, 820px);
     padding-bottom: 0;
   }
 
   .employment-photo {
     margin: 2px -22px 0;
     min-height: 54%;
+  }
+
+  .employment-photo img {
+    height: 122%;
+    object-position: 56% 100%;
+    transform: translateY(-18%);
   }
 
   .employment-actions {
