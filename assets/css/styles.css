@@ -1184,7 +1184,7 @@ dialog::backdrop {
 .employment-photo {
   position: relative;
   flex: 1 1 auto;
-  margin: -8px -42px 0;
+  margin: 2px -42px 0;
   overflow: hidden;
   min-height: 54%;
   border-radius: 0 0 20px 20px;
@@ -1197,7 +1197,7 @@ dialog::backdrop {
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, #0b0909 0%, rgba(11, 9, 9, 0.88) 7%, rgba(11, 9, 9, 0.22) 25%, transparent 42%),
+    linear-gradient(180deg, rgba(11, 9, 9, 0.96) 0%, transparent 88%),
     linear-gradient(0deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.52) 25%, transparent 58%),
     linear-gradient(90deg, rgba(0, 0, 0, 0.34), transparent 34%, transparent 66%, rgba(0, 0, 0, 0.24));
 }
@@ -1777,7 +1777,7 @@ dialog::backdrop {
   }
 
   .employment-photo {
-    margin: -6px -22px 0;
+    margin: 2px -22px 0;
     min-height: 54%;
   }
 
