@@ -250,23 +250,24 @@ svg {
   background-repeat: no-repeat;
   background-size: auto 138%;
   background-position: right 72%;
+  filter: brightness(1.1) contrast(1.08) saturate(1.06);
 
   /* Диагональная граница фотографии, как в референсе. */
   -webkit-mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    transparent 49%,
-    rgba(0, 0, 0, 0.16) 54%,
-    rgba(0, 0, 0, 0.78) 62%,
-    #000 72%
+    transparent 47%,
+    rgba(0, 0, 0, 0.12) 53%,
+    rgba(0, 0, 0, 0.68) 64%,
+    #000 76%
   );
   mask-image: linear-gradient(
     90deg,
     transparent 0%,
-    transparent 49%,
-    rgba(0, 0, 0, 0.16) 54%,
-    rgba(0, 0, 0, 0.78) 62%,
-    #000 72%
+    transparent 47%,
+    rgba(0, 0, 0, 0.12) 53%,
+    rgba(0, 0, 0, 0.68) 64%,
+    #000 76%
   );
 }
 
@@ -279,10 +280,10 @@ svg {
       104deg,
       rgba(30, 0, 5, 1) 0%,
       rgba(28, 0, 5, 1) 38%,
-      rgba(27, 0, 5, 0.98) 48%,
-      rgba(22, 0, 4, 0.78) 56%,
-      rgba(15, 1, 3, 0.34) 66%,
-      rgba(5, 4, 4, 0.12) 80%,
+      rgba(27, 0, 5, 0.9) 48%,
+      rgba(22, 0, 4, 0.62) 58%,
+      rgba(15, 1, 3, 0.26) 68%,
+      rgba(5, 4, 4, 0.08) 82%,
       transparent 100%
     ),
     linear-gradient(
@@ -294,8 +295,8 @@ svg {
 
 .hero-accent {
   /* Бордовая диагональная полоса между текстом и фотографией. */
-  inset: 0 auto 0 47.5%;
-  width: 190px;
+  inset: 0 auto 0 44.5%;
+  width: 160px;
   z-index: -1;
   pointer-events: none;
   opacity: 0.9;
@@ -1461,8 +1462,8 @@ dialog::backdrop {
   }
 
   .hero-accent {
-    left: 44.5%;
-    width: 175px;
+    left: 42.5%;
+    width: 150px;
   }
 
   .project-card {
