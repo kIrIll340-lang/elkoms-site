@@ -6,6 +6,25 @@ header('Content-Type: application/json; charset=utf-8');
 header('X-Content-Type-Options: nosniff');
 header('Cache-Control: no-store');
 
+$origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '';
+$allowedOrigins = [
+    'http://127.0.0.1:5500' => true,
+    'http://localhost:5500' => true,
+    'https://elkoms2022.ru' => true,
+];
+
+if (isset($allowedOrigins[$origin])) {
+    header('Access-Control-Allow-Origin: ' . $origin);
+    header('Vary: Origin');
+    header('Access-Control-Allow-Headers: X-Requested-With, Content-Type');
+    header('Access-Control-Allow-Methods: POST, OPTIONS');
+}
+
+if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
+    exit;
+}
+
 function reply($status, $ok, $message)
 {
     http_response_code($status);
@@ -74,7 +93,7 @@ session_start();
 $siteName = 'ЭлКомС';
 $siteDomain = 'elkoms2022.ru';
 
-$recipient = 'elkoms2022@mail.ru';
+$recipient = 'rising.sun0o0o0o0@gmail.com';
 $sender = 'site@elkoms2022.ru';
 
 $name = clean((string) (isset($_POST['name']) ? $_POST['name'] : ''));
@@ -221,7 +240,9 @@ $headers = [
     'Content-Type: text/plain; charset=UTF-8',
     'Content-Transfer-Encoding: 8bit',
     'From: ' . $encodedSiteName . ' <' . $sender . '>',
+    'Sender: ' . $sender,
     'Reply-To: ' . $sender,
+    'Return-Path: ' . $sender,
     'X-Mailer: PHP/' . PHP_VERSION,
 ];
 
@@ -229,7 +250,8 @@ $sent = mail(
     $recipient,
     $encodedSubject,
     $body,
-    implode("\r\n", $headers)
+    implode("\r\n", $headers),
+    '-f' . $sender
 );
 
 if (!$sent) {

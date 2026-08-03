@@ -16,6 +16,37 @@ window.ELKOMS_PROJECTS = [
   },
 
   {
+    id: 'football-academy',
+    title: 'Московская футбольная академия на Вятской',
+    preview: '/assets/images/projects/football-academy/01.jpg',
+    images: [
+      '/assets/images/projects/football-academy/01.jpg',
+      '/assets/images/projects/football-academy/02.jpg',
+      '/assets/images/projects/football-academy/03.jpg',
+      '/assets/images/projects/football-academy/04.jpg',
+      '/assets/images/projects/football-academy/05.jpg',
+      '/assets/images/projects/football-academy/06.jpg',
+      '/assets/images/projects/football-academy/07.jpg',
+      '/assets/images/projects/football-academy/08.jpg',
+      '/assets/images/projects/football-academy/09.jpg',
+      '/assets/images/projects/football-academy/10.jpg'
+    ]
+  },
+  
+  {
+    id: 'seligerskaya',
+    title: 'Квартира на ст.м. Селигерская',
+    preview: '/assets/images/projects/seligerskaya/01.jpg',
+    images: [
+      '/assets/images/projects/seligerskaya/01.jpg',
+      '/assets/images/projects/seligerskaya/02.jpg',
+      '/assets/images/projects/seligerskaya/03.jpg',
+      '/assets/images/projects/seligerskaya/04.jpg',
+      '/assets/images/projects/seligerskaya/05.jpg'
+    ]
+  },
+
+  {
     id: 'crocus-expo',
     title: 'Выставка в «Крокус Экспо»',
     preview: '/assets/images/projects/crocus-expo/01.jpg',
@@ -50,19 +81,6 @@ window.ELKOMS_PROJECTS = [
       '/assets/images/projects/krasnogorsk/02.jpg',
       '/assets/images/projects/krasnogorsk/03.jpg',
       '/assets/images/projects/krasnogorsk/04.jpg'
-    ]
-  },
-
-  {
-    id: 'seligerskaya',
-    title: 'Квартира на ст.м. Селигерская',
-    preview: '/assets/images/projects/seligerskaya/01.jpg',
-    images: [
-      '/assets/images/projects/seligerskaya/01.jpg',
-      '/assets/images/projects/seligerskaya/02.jpg',
-      '/assets/images/projects/seligerskaya/03.jpg',
-      '/assets/images/projects/seligerskaya/04.jpg',
-      '/assets/images/projects/seligerskaya/05.jpg'
     ]
   },
 
@@ -103,24 +121,6 @@ window.ELKOMS_PROJECTS = [
       '/assets/images/projects/bakuninskaya/04.jpg',
       '/assets/images/projects/bakuninskaya/05.jpg',
       '/assets/images/projects/bakuninskaya/06.jpg'
-    ]
-  },
-
-  {
-    id: 'football-academy',
-    title: 'Московская футбольная акдемия на Вятской',
-    preview: '/assets/images/projects/football-academy/01.jpg',
-    images: [
-      '/assets/images/projects/football-academy/01.jpg',
-      '/assets/images/projects/football-academy/02.jpg',
-      '/assets/images/projects/football-academy/03.jpg',
-      '/assets/images/projects/football-academy/04.jpg',
-      '/assets/images/projects/football-academy/05.jpg',
-      '/assets/images/projects/football-academy/06.jpg',
-      '/assets/images/projects/football-academy/07.jpg',
-      '/assets/images/projects/football-academy/08.jpg',
-      '/assets/images/projects/football-academy/09.jpg',
-      '/assets/images/projects/football-academy/10.jpg'
     ]
   },
 

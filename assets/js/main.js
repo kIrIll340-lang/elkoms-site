@@ -10,6 +10,8 @@
   const dots = document.querySelector('#project-dots');
   const prevButton = document.querySelector('#projects-prev');
   const nextButton = document.querySelector('#projects-next');
+  const customersMarquee = document.querySelector('.customers-marquee');
+  const customersTrack = document.querySelector('.customers-track');
 
   const galleryDialog = document.querySelector('#gallery-dialog');
   const galleryTitle = document.querySelector('#gallery-title');
@@ -68,6 +70,10 @@
   let projectTouchStartPage = 0;
   let projectTouchMoved = false;
   let projectDotsFrame = 0;
+  let customersTouchStartX = 0;
+  let customersTouchStartY = 0;
+  let customersTouchStartTime = 0;
+  let customersReturnFrame = 0;
 
   const escapeHtml = (value) => String(value)
     .replaceAll('&', '&amp;')
@@ -79,6 +85,54 @@
   function syncDialogOpenState() {
     const hasOpenDialog = allDialogs.some((dialog) => dialog.open);
     document.documentElement.classList.toggle('dialog-open', hasOpenDialog);
+  }
+
+  function getCustomersAnimation() {
+    return customersTrack?.getAnimations()
+      .find((animation) => animation.animationName === 'customers-scroll');
+  }
+
+  function easeCustomersPlayback(targetRate) {
+    const animation = getCustomersAnimation();
+    if (!animation) return;
+
+    if (customersReturnFrame) cancelAnimationFrame(customersReturnFrame);
+
+    const step = () => {
+      const currentRate = animation.playbackRate || 1;
+      const nextRate = currentRate + (targetRate - currentRate) * 0.12;
+
+      animation.updatePlaybackRate(nextRate);
+
+      if (Math.abs(nextRate - targetRate) > 0.03) {
+        customersReturnFrame = requestAnimationFrame(step);
+      } else {
+        animation.updatePlaybackRate(targetRate);
+        customersReturnFrame = 0;
+      }
+    };
+
+    customersReturnFrame = requestAnimationFrame(step);
+  }
+
+  function boostCustomersMarquee(deltaX, elapsedMs) {
+    const animation = getCustomersAnimation();
+    if (!animation || Math.abs(deltaX) < 18 || elapsedMs <= 0) return;
+
+    const velocity = Math.abs(deltaX) / elapsedMs;
+    const directionRate = deltaX < 0 ? 1 : -1;
+    const boostRate = Math.min(5, 1.35 + velocity * 8);
+
+    animation.updatePlaybackRate(directionRate * boostRate);
+    window.setTimeout(() => easeCustomersPlayback(1), 420);
+  }
+
+  function getRequestFormEndpoint() {
+    if (['127.0.0.1', 'localhost'].includes(window.location.hostname)) {
+      return 'https://elkoms2022.ru/send-form.php';
+    }
+
+    return requestForm.action;
   }
 
   function closeDialog(dialog) {
@@ -545,6 +599,29 @@
     }
   });
 
+  customersMarquee?.addEventListener('touchstart', (event) => {
+    const touch = event.touches[0];
+    if (!touch) return;
+
+    customersTouchStartX = touch.clientX;
+    customersTouchStartY = touch.clientY;
+    customersTouchStartTime = performance.now();
+  }, { passive: true });
+
+  customersMarquee?.addEventListener('touchend', (event) => {
+    const touch = event.changedTouches[0];
+    if (!touch || !customersTouchStartTime) return;
+
+    const deltaX = touch.clientX - customersTouchStartX;
+    const deltaY = touch.clientY - customersTouchStartY;
+
+    if (Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
+      boostCustomersMarquee(deltaX, performance.now() - customersTouchStartTime);
+    }
+
+    customersTouchStartTime = 0;
+  }, { passive: true });
+
   const requestFormModes = {
     work_request: {
       title: 'Оставить заявку',
@@ -661,7 +738,7 @@
     }
 
     try {
-      const response = await fetch(requestForm.action, {
+      const response = await fetch(getRequestFormEndpoint(), {
         method: 'POST',
         body: new FormData(requestForm),
         headers: {
