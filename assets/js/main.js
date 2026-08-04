@@ -121,10 +121,10 @@
 
     const velocity = Math.abs(deltaX) / elapsedMs;
     const directionRate = deltaX < 0 ? 1 : -1;
-    const boostRate = Math.min(5, 1.35 + velocity * 8);
+    const boostRate = Math.min(8, 1.8 + velocity * 14);
 
     animation.updatePlaybackRate(directionRate * boostRate);
-    window.setTimeout(() => easeCustomersPlayback(1), 420);
+    window.setTimeout(() => easeCustomersPlayback(1), 650);
   }
 
   function getRequestFormEndpoint() {

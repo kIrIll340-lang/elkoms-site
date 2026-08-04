@@ -139,7 +139,7 @@ window.ELKOMS_PROJECTS = [
 
   {
     id: 'fridriha',
-    title: 'Московская акдемия бокса на Фридриха Энгельса',
+    title: 'Московская академия бокса на Фридриха Энгельса',
     preview: '/assets/images/projects/box-academy/01.jpg',
     images: [
       '/assets/images/projects/box-academy/01.jpg',

@@ -93,7 +93,7 @@ session_start();
 $siteName = 'ЭлКомС';
 $siteDomain = 'elkoms2022.ru';
 
-$recipient = 'rising.sun0o0o0o0@gmail.com';
+$recipient = 'elkoms2022@mail.ru';
 $sender = 'site@elkoms2022.ru';
 
 $name = clean((string) (isset($_POST['name']) ? $_POST['name'] : ''));

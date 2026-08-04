@@ -1885,7 +1885,7 @@ dialog::backdrop {
   }
 
   .hero-photo {
-    margin-top: -72px;
+    margin-top: -24px;
     min-height: clamp(360px, 98vw, 430px);
     background-position: 62% 40%;
   }
