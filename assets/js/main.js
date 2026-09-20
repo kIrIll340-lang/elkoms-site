@@ -755,6 +755,14 @@
         );
       }
 
+      if (typeof window.ym === 'function') {
+        try {
+          window.ym(111076808, 'reachGoal', 'lead_success');
+        } catch (metricError) {
+          console.warn('Не удалось отправить цель Метрики:', metricError);
+        }
+      }
+
       if (formStatus) {
         formStatus.className = 'form-status is-success';
         formStatus.textContent = data.message ||
